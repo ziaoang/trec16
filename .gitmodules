@@ -1,0 +1,3 @@
+[submodule "tool/twitter-tools"]
+	path = tool/twitter-tools
+	url = https://github.com/lintool/twitter-tools.git
