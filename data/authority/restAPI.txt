@@ -1,0 +1,7 @@
+groupId: PKUICST.vwNV 
+
+clientId: mnHk0sTeKUcU
+
+#Usage
+
+https://github.com/trecrts/trecrts-eval/tree/master/trecrts-server
