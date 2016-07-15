@@ -20,11 +20,11 @@ import logging
 import logging.handlers
 
 
-consumer_key=""
-consumer_secret=""
+consumer_key="cYB00c5FkSbCY2oMyAqQ"
+consumer_secret="eSg9pvRc1Q57yzH8W0cj2feziw7dUfvKyW3QzKPsBN4"
 
-access_token=""
-access_token_secret=""
+access_token="1661733726-nkRPTWH4UFi2rYfhr7qKM1P3Mo8OaMyVYdyjGcB"
+access_token_secret="lt5GOQsOOBdJVRsCyOCdQdYnDkpJcsK1YMq93E8Y0"
 
 class TweetListener(StreamListener):
 
