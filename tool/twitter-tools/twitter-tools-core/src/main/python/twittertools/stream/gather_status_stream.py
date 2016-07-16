@@ -18,7 +18,7 @@ from tweepy import OAuthHandler
 from tweepy import Stream
 import logging
 import logging.handlers
-
+import MySQLdb
 
 consumer_key="cYB00c5FkSbCY2oMyAqQ"
 consumer_secret="eSg9pvRc1Q57yzH8W0cj2feziw7dUfvKyW3QzKPsBN4"
@@ -50,12 +50,25 @@ class TweetListener(StreamListener):
 
     self.logger.setLevel(logging.INFO)
     self.count = 0
+    self.cache = []
 
   def on_data(self,data):
     self.count+=1
     self.logger.info(data)
+    self.cache.append(data)
     if self.count % 1000 == 0:
         print "%d statuses processed" % self.count
+        try:
+            conn=MySQLdb.connect(host='localhost',user='root',passwd='webkdd',db='trec16',port=3306)
+            cur=conn.cursor()
+            cur.execute('select * from user')
+            cur.executemany('insert into raw (json) values(%s)',self.cache)
+            cur.commit()
+            cur.close()
+            conn.close()
+            self.cache = []
+        except MySQLdb.Error,e:
+            print "Mysql Error %d: %s" % (e.args[0], e.args[1])
     return True
 
   def on_error(self,exception):
