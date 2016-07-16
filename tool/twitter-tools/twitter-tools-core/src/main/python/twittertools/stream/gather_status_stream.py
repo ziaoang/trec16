@@ -61,12 +61,12 @@ class TweetListener(StreamListener):
         try:
             conn=MySQLdb.connect(host='localhost',user='root',passwd='webkdd',db='trec16',port=3306)
             cur=conn.cursor()
-            cur.execute('select * from user')
             cur.executemany('insert into raw (json) values(%s)',self.cache)
-            cur.commit()
+            conn.commit()
             cur.close()
             conn.close()
             self.cache = []
+            print "Mysql OK"
         except MySQLdb.Error,e:
             print "Mysql Error %d: %s" % (e.args[0], e.args[1])
     return True
