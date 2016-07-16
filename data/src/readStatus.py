@@ -3,7 +3,7 @@
 # FILE:     readStatus.py
 # ROLE:     TODO (some explanation)
 # CREATED:  2016-07-15 21:01:07
-# MODIFIED: 2016-07-16 10:57:41
+# MODIFIED: 2016-07-16 15:14:02
 
 import sys
 import json
@@ -21,16 +21,14 @@ def extractStatus(statusJson):
             processedText = preprocess(status['text'])
             if processedText != '':
                 text = '%s\t%s\t%s\t%s' % (status['id_str'], status['created_at'], processedText, originText)
-    except:
-        print statusJson
-        print 'json format error'
+    except Exception, e:
+        print 'Error: ' + str(e)
         exit()
     return text
     
 def readData(inputFile, outputFile):
     result = open(outputFile, "w")
     try: 
-        count = 0
         with gzip.open(inputFile,'rt') as fin:
             for i, line in enumerate(fin):
                 text = extractStatus(line.strip())
@@ -38,7 +36,7 @@ def readData(inputFile, outputFile):
                 if text == '': continue 
                 result.write(text + "\n")
     except Exception as e:
-        print e 
+        print "Error: " + str(e)
     result.close()
 
 if __name__ == "__main__":

@@ -8,6 +8,7 @@
 import json
 import nltk
 import string
+
 import urllib2
 import re
 from bs4 import BeautifulSoup
@@ -106,9 +107,10 @@ def preprocess(tweetText):
         text = text.replace(url,'')
     remove_punctuation_map = dict((ord(char), None) for char in string.punctuation)
     tokens = nltk.word_tokenize(text.lower())
-    filtered_tokens = tokens
+    filtered_tokens = [word.translate(remove_punctuation_map) for word in tokens]
     porter = nltk.PorterStemmer()
     stem_tokens = [porter.stem(token.encode('utf-8')) for token in filtered_tokens if not token=='' and not token =='rt' and not stopwordDict.has_key(token) and not token.isdigit()]
     return ' '.join(stem_tokens)
+
 
 
