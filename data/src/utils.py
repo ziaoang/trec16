@@ -19,12 +19,12 @@ import urlparse
 
 socket.setdefaulttimeout(0.5)
 
-def loadStopWord(filePath):
-    stopwordFile = open(filePath,'r')
-    stopwordDict = {}
-    for line in stopwordFile:
-        stopwordDict[line.strip()] = True
-    return stopwordDict
+def load_stopword(file_path):
+    stopword_file = open(file_path,'r')
+    stopword_dict = {}
+    for line in stopword_file:
+        stopword_dict[line.strip()] = True
+    return stopword_dict
     
 def non_ascii_term(term):
     ascii_reg = re.compile(r'^[\x00-\x7F]+$')
@@ -58,7 +58,7 @@ def unshorten_url(url):
     else:
         return url
         
-def crawlTitleFromUrl(url):
+def craw_url_title(url):
     hdr = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11',
        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
        'Accept-Charset': 'ISO-8859-1,utf-8;q=0.7,*;q=0.3',
@@ -88,16 +88,16 @@ def crawlTitleFromUrl(url):
     return ''
     
 
-def preprocess(tweetText):
-    stopwordDict = loadStopWord('stopword')
-    text = tweetText.replace('\n','').replace('\t','')
+def preprocess(tweet_text):
+    stopword_dict = load_stopword('stopword')
+    text = tweet_text.replace('\n','').replace('\t','')
     if text.find('RT @') >= 0:  
         rt_token = text.split('RT ')
         text = ' '.join(rt_token[1:])
     space_reg = re.compile('\s+')
     term_list = space_reg.split(text.lower())
     # remove stopword,  @username, rt
-    filtered_term_list = [term for term in term_list if not term == '' and not term == 'rt' and not stopwordDict.has_key(term) and not term[0]=='@']
+    filtered_term_list = [term for term in term_list if not term == '' and not term == 'rt' and not stopword_dict.has_key(term) and not term[0]=='@']
     filtered_term_list2 = filter(non_ascii_term, filtered_term_list)
     text = ' '.join(filtered_term_list2)
     url_reg = re.compile(r'(https?://+\w+\.+\w+/\w+)')
@@ -109,7 +109,7 @@ def preprocess(tweetText):
     tokens = nltk.word_tokenize(text.lower())
     filtered_tokens = [word.translate(remove_punctuation_map) for word in tokens]
     porter = nltk.PorterStemmer()
-    stem_tokens = [porter.stem(token.encode('utf-8')) for token in filtered_tokens if not token=='' and not token =='rt' and not stopwordDict.has_key(token) and not token.isdigit()]
+    stem_tokens = [porter.stem(token.encode('utf-8')) for token in filtered_tokens if not token=='' and not token =='rt' and not stopword_dict.has_key(token) and not token.isdigit()]
     return ' '.join(stem_tokens)
 
 

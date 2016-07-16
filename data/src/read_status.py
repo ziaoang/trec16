@@ -12,26 +12,26 @@ from utils import preprocess
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-def extractStatus(statusJson):
+def extract_status(status_json):
     text = ''
     try:
-        status = json.loads(statusJson) 
+        status = json.loads(status_json) 
         if status.has_key('created_at') and status['lang'] == 'en':
-            originText = status['text'].replace('\n','').replace('\t','')
-            processedText = preprocess(status['text'])
-            if processedText != '':
-                text = '%s\t%s\t%s\t%s' % (status['id_str'], status['created_at'], processedText, originText)
+            origin_text = status['text'].replace('\n','').replace('\t','')
+            processed_text = preprocess(status['text'])
+            if processed_text != '':
+                text = '%s\t%s\t%s\t%s' % (status['id_str'], status['created_at'], processed_text, origin_text)
     except Exception, e:
         print 'Error: ' + str(e)
         exit()
     return text
     
-def readData(inputFile, outputFile):
-    result = open(outputFile, "w")
+def read_data(input_file, output_file):
+    result = open(output_file, "w")
     try: 
-        with gzip.open(inputFile,'rt') as fin:
+        with gzip.open(input_file,'rt') as fin:
             for i, line in enumerate(fin):
-                text = extractStatus(line.strip())
+                text = extract_status(line.strip())
                 #skip empty tweet after stemmered, stopword removal
                 if text == '': continue 
                 result.write(text + "\n")
@@ -45,4 +45,4 @@ if __name__ == "__main__":
         print 'argv[2]: output result file!'
         exit()
         
-    readData(sys.argv[1], sys.argv[2])
+    read_data(sys.argv[1], sys.argv[2])
