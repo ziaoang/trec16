@@ -40,11 +40,11 @@ if __name__ == "__main__":
             conn.close()
 
             # print state
-            print "Mysql OK"
+            print "OK"
 
-        except MySQLdb.Error,e:
+        except Exception, e:
             # print state
-            print "Mysql Error %d: %s" % (e.args[0], e.args[1])
+            print e
 
 
         

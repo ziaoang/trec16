@@ -1,0 +1,8 @@
+DROP TABLE IF EXISTS `raw`;
+CREATE TABLE `raw` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `json` text NOT NULL,
+  `is_process` bit(1) DEFAULT NULL,
+  `lastupdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3001 DEFAULT CHARSET=utf8;

@@ -66,9 +66,9 @@ class TweetListener(StreamListener):
                 cur.close()
                 conn.close()
                 self.cache = []
-                print "Mysql OK"
-            except MySQLdb.Error,e:
-                print "Mysql Error %d: %s" % (e.args[0], e.args[1])
+                print "OK"
+            except Exception, e:
+                print e
         return True
 
     def on_error(self,exception):
