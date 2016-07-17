@@ -6,6 +6,7 @@
 # MODIFIED: 2016-07-16 20:25:03
 
 import MySQLdb
+import time
 
 
 if __name__ == "__main__":
@@ -19,6 +20,9 @@ if __name__ == "__main__":
             cur = db.cursor()
             while True:
                 cur.execute("SELECT * FROM raw WHERE is_process = 1")
+                if len(cur.fetchall()) == 0:
+                    time.sleep(5)
+                    continue
                 for row in cur.fetchall():
                     id = str(row[0])
                     json_data = row[1]
@@ -27,7 +31,8 @@ if __name__ == "__main__":
                     
                     # update database
                     cur.execute("UPDATE raw SET is_process = 0 WHERE id = %s", (id,))
-                exit()
+                # exit()
         except MySQLdb.Error, e:
             print e
         db.close()
+        
