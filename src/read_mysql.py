@@ -10,41 +10,41 @@ import time
 
 
 if __name__ == "__main__":
-        db = MySQLdb.connect(host="localhost",   
-                             user="root",         
-                             passwd="webkdd",  
-                             db="trec16")        
-
-        db.autocommit(True)
+    while True:
+        # iterator every 10 seconds
+        time.sleep(10)
+        
         try:
-            cur = db.cursor()
-            # sleep_time & flag are used to record continuous sleep time
-            sleep_time = 0
-            flag = False
-            while True:
-                cur.execute("SELECT * FROM raw WHERE is_process = 0")
-                result = cur.fetchall()
-                if len(result) == 0:
-                    print 1
-                    time.sleep(5)
-                    if flag:
-                        sleep_time += 5
-                        # if continuous sleep time more than 2 hours, break
-                        if sleep_time > 7200: break
-                    else:
-                        sleep_time = 5
-                        flag = True
-                    continue
-                flag = False
-                for row in result:
-                    id = str(row[0])
-                    json_data = row[1]
-                    # deal with json_data, remain TO DO
-                    print id
-                    
-                    # update database
-                    cur.execute("UPDATE raw SET is_process = 1 WHERE id = %s", (id,))
-        except MySQLdb.Error, e:
-            print e
-        db.close()
+            # connect db
+            conn=MySQLdb.connect(host='localhost',user='root',passwd='webkdd',db='trec16',port=3306)
+            cur=conn.cursor()
+
+            # select rows
+            cur.execute("SELECT * FROM raw WHERE is_process = 0")
+            rows = cur.fetchall()
+            ids = []
+            for row in rows:
+                id = row[0]
+                json_data = row[1]
+                # deal with json_data, remain TO DO
+                print id
+                ids.append(id)
+
+            # update rows
+            if len(ids) > 0:
+                cur.executemany("UPDATE raw SET is_process = 1 WHERE id = %d", ids)
+                conn.commit()
+
+            # close db
+            cur.close()
+            conn.close()
+
+            # print state
+            print "Mysql OK"
+
+        except MySQLdb.Error,e:
+            # print state
+            print "Mysql Error %d: %s" % (e.args[0], e.args[1])
+
+
         
