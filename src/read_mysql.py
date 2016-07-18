@@ -7,6 +7,7 @@
 
 import MySQLdb
 import time
+from src.scenarioA import pipeline
 
 
 if __name__ == "__main__":
@@ -24,15 +25,17 @@ if __name__ == "__main__":
             rows = cur.fetchall()
             ids = []
             for row in rows:
-                id = row[0]
+                id = str(row[0])
                 json_data = row[1]
                 # deal with json_data, remain TO DO
+                pipeline(json_data)
                 print id
                 ids.append(id)
-
+            
+            print ids
             # update rows
             if len(ids) > 0:
-                cur.executemany("UPDATE raw SET is_process = 1 WHERE id = %d", ids)
+                cur.executemany("UPDATE raw SET is_process = 1 WHERE id = %s", ids)
                 conn.commit()
 
             # close db
