@@ -6,11 +6,13 @@
 # MODIFIED: 2016-07-19 19:56:54
 
 import json
+import time
 from datetime import datetime
 import pytz
 from src.read_topic import get_topics
 from src.utils import preprocess
 from src.classes.tweet import Tweet
+from src.classes.query import Query
 from src.classes.relation import *
 
 
@@ -132,32 +134,40 @@ def pipeline(tweet_json):
             threshold_dict = get_threshold("src/data/threshold.txt")
             for query in query_list:
                 rel_score = similarity_q_t(query, tweet)
-                # threshold_dict remain TO DO
+                print "query title: ", query._title
+                print "tweet text: ", tweet._text
                 day_delta = day_index(2016, 8, 2)
-                print "day_delta: " + day_delta
-                if day_delta >= len(threshold_dict[query.id]) or day_delta < 0:
+                print "day_delta: ", day_delta
+                # if day_delta >= len(threshold_dict[query._topid]) or day_delta < 0:
+                if day_delta >= len(threshold_dict[query._topid]):
                     print "day_delta invalid!"
                     exit()
-                rel_nol_pair = threshold_dict[query.id][day_delta].strip().split("/")
+                # use for test
+                if day_delta < 0: day_delta = 0
+                rel_nol_pair = threshold_dict[query._topid][day_delta].strip().split("/")
                 if len(rel_nol_pair) != 2:
-                    print "Current query id: " + query.id + " rel_nol_pair split error!"
+                    print "Current query._topid: " + query._topid + " rel_nol_pair split error!"
                     exit()
                 rel_threshold = rel_nol_pair[0]
                 nol_threshold = rel_nol_pair[1]
+                print "rel_threshold: ", rel_threshold
+                print "nol_threshold: ", nol_threshold
+                print "rel_score: ", rel_score
                 if rel_score < rel_threshold:
                     continue
-                cur_queue = get_recommend_queue(query.id)
+                cur_queue = get_recommend_queue(query._topid)
                 if len(cur_queue) == 0:
-                    update_recommend_queue(query.id, tweet)
-                    print "add tweet:" + tweet.id + " to query:" + query.id + " queue"
+                    update_recommend_queue(query._topid, tweet)
+                    print "add tweet:" + tweet.id + " to query:" + query._topid + " queue"
                 else:
                     # remain TO TEST
                     nol_score = novel_strategy(1, tweet, cur_queue)
                     nol_score = novel_strategy(2, tweet, cur_queue)
                     nol_score = novel_strategy(3, tweet, cur_queue)
+                    print "nol_score: ", nol_score
                     if nol_score < nol_threshold:
-                        update_recommend_queue(query.id, tweet)
-                        print "add tweet:" + tweet.id + " to query:" + query.id + " queue"
+                        update_recommend_queue(query._topid, tweet)
+                        print "add tweet:" + tweet.id + " to query:" + query._topid + " queue"
     except ValueError, e:
         print str(e)
         
