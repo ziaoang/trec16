@@ -12,6 +12,7 @@ reload(sys)
 sys.setdefaultencoding("utf-8")
 from src.classes.query import Query
 
+# topic file is json format
 def get_topics(input_file):
     while(True):
         try:
