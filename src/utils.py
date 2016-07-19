@@ -89,7 +89,7 @@ def craw_url_title(url):
     
 
 def preprocess(tweet_text):
-    stopword_dict = load_stopword('src/stopword')
+    stopword_dict = load_stopword('src/data/stopword')
     text = tweet_text.replace('\n','').replace('\t','')
     if text.find('RT @') >= 0:  
         rt_token = text.split('RT ')
