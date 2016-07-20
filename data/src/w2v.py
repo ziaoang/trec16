@@ -6,15 +6,24 @@ from gensim.models.word2vec import Word2Vec
 
 class Status():
     def __init__(self, status_json):
-        t = json.loads(status_json)
-        default_t = defaultdict(lambda: None, t)
-        self.created_at = default_t['created_at']
-        self.lang       = default_t['lang']
-        self.id_str     = default_t['id_str']
-        self.text       = default_t['text']
+        try:
+            t = json.loads(status_json)
+            default_t = defaultdict(lambda: None, t)
+            self.created_at = default_t['created_at']
+            self.lang       = default_t['lang']
+            self.id_str     = default_t['id_str']
+            self.text       = default_t['text']
 
-        self.plain_text = self.extract_plain_text(self.text) if self.text != None else None
-        self.word_list = self.extract_word_list(self.plain_text) if self.plain_text != None else None
+            self.plain_text = self.extract_plain_text(self.text) if self.text != None else None
+            self.word_list  = self.extract_word_list(self.plain_text) if self.plain_text != None else None
+        except:
+            self.created_at = None
+            self.lang       = None
+            self.id_str     = None
+            self.text       = None
+
+            self.plain_text = None
+            self.word_list  = None
 
     def filter_non_ascii(self, text):
         return re.sub(r'[^\x00-\x7F]+', ' ', text)
@@ -68,9 +77,9 @@ def train_w2v():
     sentences = []
     for day in range(13, 30):
         for hour in range(24):
-            print("%d\t%d"%(day, hour))
             file_path = "/index15/raw/statuses.log.2015-07-%02d-%02d.gz"%(day, hour)
             current_sentences = load_sentences(file_path)
+            print("%02d\t%02d\t%d"%(day, hour, len(current_sentences)))
             sentences += current_sentences
     model = Word2Vec(sentences, size=100, window=5, min_count=5, workers=4)
     model.save_word2vec_format("w2v.txt")
