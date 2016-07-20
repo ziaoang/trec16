@@ -12,9 +12,6 @@ from src.scenarioA import pipeline
 
 if __name__ == "__main__":
     while True:
-        # iterator every 10 seconds
-        time.sleep(10)
-        
         try:
             # connect db
             conn=MySQLdb.connect(host='localhost',user='root',passwd='webkdd',db='trec16',port=3306)
@@ -25,7 +22,7 @@ if __name__ == "__main__":
             rows = cur.fetchall()
             for row in rows:
                 id, json_data = row[0], row[1]
-                # deal with json_data, remain TO DO
+                # deal with json_data
                 pipeline(json_data)
                 cur.execute("UPDATE raw SET is_process = 1 WHERE id = %d", (id,))
             conn.commit()
@@ -40,6 +37,8 @@ if __name__ == "__main__":
         except Exception, e:
             # print state
             print e
-
+            
+        # iterator every 10 seconds
+        time.sleep(10)
 
         
