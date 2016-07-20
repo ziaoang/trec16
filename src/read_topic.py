@@ -1,7 +1,7 @@
 #-*- coding:utf-8 -*-
 # AUTHOR:   yaolili
 # FILE:     read_topic.py
-# ROLE:     TODO (some explanation)
+# ROLE:     It's useless now
 # CREATED:  2016-07-18 20:00:39
 # MODIFIED: 2016-07-18 20:00:40
 
@@ -10,7 +10,7 @@ import time
 import sys
 reload(sys)
 sys.setdefaultencoding("utf-8")
-from src.classes.query import Query
+from src.classes.trecjson import Query
 
 # topic file is json format
 def get_topics(input_file):
