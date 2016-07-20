@@ -1,5 +1,6 @@
 import re
 import json
+import nltk
 from collections import defaultdict
 
 class TrecJson:
@@ -40,7 +41,21 @@ class TrecJson:
         return text_3
     
     def extract_word_list(self, text):
-        return re.sub(r'[^a-zA-Z]+', ' ', text).lower().strip().split(' ')
+        return re.sub(r'[^a-zA-Z]+', ' ', text).strip().lower().split(' ')
+
+    def filter_stopword(self, word_list):
+        stopword_set = set()
+        for line in open("../data/stopword"):
+            stopword_set.add(line.strip())
+        res = []
+        for w in word_list:
+            if w not in stopword_set:
+                res.append(w)
+        return res
+    
+    def stem(self, word_list):
+        porter = nltk.PorterStemmer()
+        return [porter.stem(w) for w in word_list]
 
     def extract_distribution(self, word_list):
         res = {}
@@ -57,55 +72,54 @@ class TrecJson:
         res = [0.0] * 100
         return res
 
-
 class Query(TrecJson):
     def __init__(self, query_json):
+        t = None
         try:
             t = json.loads(query_json)
-            default_t = defaultdict(lambda: None, t)
-            self.topid        = default_t['topid']
-            self.title        = default_t['title']
-            self.description  = default_t['description']
-            self.narrative    = default_t['narrative']
-            
-            self.word_list    = self.extract_word_list(self.title) if self.title != None else None
-            self.distribution = self.extract_distribution(self.word_list) if self.word_list != None else None
-            self.vector       = self.extract_vector(self.word_list) if self.word_list != None else None
         except:
-            self.topid        = None
-            self.title        = None
-            self.description  = None
-            self.narrative    = None
-
-            self.word_list    = None
-            self.distribution = None
-            self.vector       = None
+            t = {}
+            print("input is not a json string")
+        
+        default_t = defaultdict(lambda: None, t)
+        self.topid        = default_t['topid']
+        self.title        = default_t['title']
+        self.description  = default_t['description']
+        self.narrative    = default_t['narrative']
+        
+        if self.title != None:    
+            self.word_list    = self.extract_word_list(self.title)
+            self.distribution = self.extract_distribution(self.word_list)
+            self.vector       = self.extract_vector(self.word_list)
+    
+            self.nostop_list  = self.filter_stopword(self.word_list)
+            self.stem_list    = self.stem(self.nostop_list)
 
 
 class Tweet(TrecJson):
     def __init__(self, tweet_json):
+        t = None
         try:
             t = json.loads(tweet_json)
-            default_t = defaultdict(lambda: None, t)
-            self.created_at   = default_t['created_at']
-            self.lang         = default_t['lang']
-            self.id_str       = default_t['id_str']
-            self.text         = default_t['text']
-
-            self.plain_text   = self.extract_plain_text(self.text) if self.text != None else None
-            self.word_list    = self.extract_word_list(self.plain_text) if self.plain_text != None else None
-            self.distribution = self.extract_distribution(self.word_list) if self.word_list != None else None
-            self.vector       = self.extract_vector(self.word_list) if self.word_list != None else None
         except:
-            self.created_at   = None
-            self.lang         = None
-            self.id_str       = None
-            self.text         = None
+            t = {}
+            print("input is not a json string")
+            
+        default_t = defaultdict(lambda: None, t)
+        self.created_at   = default_t['created_at']
+        self.lang         = default_t['lang']
+        self.id_str       = default_t['id_str']
+        self.text         = default_t['text']
 
-            self.plain_text   = None
-            self.word_list    = None
-            self.distribution = None
-            self.vector       = None
+        if self.created_at != None and self.lang == 'en' and self.text != None:
+            self.plain_text   = self.extract_plain_text(self.text)
+            
+            self.word_list    = self.extract_word_list(self.plain_text)
+            self.distribution = self.extract_distribution(self.word_list)
+            self.vector       = self.extract_vector(self.word_list)
+    
+            self.nostop_list  = self.filter_stopword(self.word_list)
+            self.stem_list    = self.stem(self.nostop_list)
 
 
 

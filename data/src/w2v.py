@@ -77,10 +77,15 @@ def train_w2v():
     sentences = []
     for day in range(13, 30):
         for hour in range(24):
-            file_path = "/index15/raw/statuses.log.2015-07-%02d-%02d.gz"%(day, hour)
-            current_sentences = load_sentences(file_path)
-            print("%02d\t%02d\t%d"%(day, hour, len(current_sentences)))
-            sentences += current_sentences
+            try:
+                file_path = "/index15/raw/statuses.log.2015-07-%02d-%02d.gz"%(day, hour)
+                current_sentences = load_sentences(file_path)
+                print("%02d\t%02d\t%d"%(day, hour, len(current_sentences)))
+                sentences += current_sentences
+            except Exception, e:
+                print("%02d\t%02d"%(day, hour))
+                print e
+    
     model = Word2Vec(sentences, size=100, window=5, min_count=5, workers=4)
     model.save_word2vec_format("w2v.txt")
 

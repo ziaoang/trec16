@@ -24,7 +24,7 @@ for line in open('../../data/data15/example.txt'):
         t_list.append(t)
 
 for t in t_list:
-    print(t.text)
+    print(t.plain_text)
 
 
 if len(q_list) > 0 and len(t_list) > 1:
