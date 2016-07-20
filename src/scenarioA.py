@@ -15,6 +15,8 @@ from src.classes.tweet import Tweet
 from src.classes.query import Query
 from src.classes.relation import *
 
+log = open("log.txt", "a+")
+log.write("----------------------\n")
 
 def extract_status(status_json):
     tweet_info = []
@@ -29,7 +31,7 @@ def extract_status(status_json):
                 timestamp = status['created_at']
                 tweet_info = [id, timestamp, text]
     except Exception, e:
-        print 'Error: ' + str(e)
+        print 'Error in extract_status(): ' + str(e)
         exit()
     return tweet_info
     
@@ -50,7 +52,7 @@ def get_threshold(file_path):
                     print "Threshold file format wrong!"
                     exit()
     except Exception, e:
-        print str(e)
+        print 'Error in get_threshold(): '+ str(e)
         exit()
     return result
 
@@ -67,7 +69,7 @@ def get_recommend_queue(query_id):
                     exit()
                 queue.append(Tweet(tweet_id, timestamp, text))
     except Exception, e:
-        print str(e)
+        print 'Error in get_recommend_queue(): '+ str(e)
         exit()
     return queue    
         
@@ -82,7 +84,7 @@ def update_recommend_queue(query_id, tweet):
         result.write(string)
         result.close()
     except Exception, e:
-        print str(e)
+        print 'Error in update_recommend_queue(): ' + str(e)
         exit()
        
 
@@ -134,11 +136,12 @@ def pipeline(tweet_json):
             threshold_dict = get_threshold("src/data/threshold.txt")
             for query in query_list:
                 rel_score = similarity_q_t(query, tweet)
-                print "query title: ", query._title
-                print "tweet text: ", tweet._text
                 day_delta = day_index(2016, 8, 2)
-                print "day_delta: ", day_delta
+                # use for test
                 # if day_delta >= len(threshold_dict[query._topid]) or day_delta < 0:
+                if query._topid not in threshold_dict:
+                    print "Current query topid: " + query._topid + " not in threshold_dict!"
+                    exit()
                 if day_delta >= len(threshold_dict[query._topid]):
                     print "day_delta invalid!"
                     exit()
@@ -146,30 +149,30 @@ def pipeline(tweet_json):
                 if day_delta < 0: day_delta = 0
                 rel_nol_pair = threshold_dict[query._topid][day_delta].strip().split("/")
                 if len(rel_nol_pair) != 2:
-                    print "Current query._topid: " + query._topid + " rel_nol_pair split error!"
+                    print "Current query topid: " + query._topid + " rel_nol_pair split error!"
                     exit()
                 rel_threshold = rel_nol_pair[0]
                 nol_threshold = rel_nol_pair[1]
-                print "rel_threshold: ", rel_threshold
-                print "nol_threshold: ", nol_threshold
-                print "rel_score: ", rel_score
+
                 if rel_score < rel_threshold:
                     continue
                 cur_queue = get_recommend_queue(query._topid)
                 if len(cur_queue) == 0:
                     update_recommend_queue(query._topid, tweet)
-                    print "add tweet:" + tweet.id + " to query:" + query._topid + " queue"
+                    log_string = "tweet text: " + tweet._text + ", query title: " + query._topid + ", rel_score: " + str(rel_score) + "\n"
+                    log.write(log_string)
                 else:
                     # remain TO TEST
                     nol_score = novel_strategy(1, tweet, cur_queue)
                     nol_score = novel_strategy(2, tweet, cur_queue)
                     nol_score = novel_strategy(3, tweet, cur_queue)
-                    print "nol_score: ", nol_score
                     if nol_score < nol_threshold:
                         update_recommend_queue(query._topid, tweet)
-                        print "add tweet:" + tweet.id + " to query:" + query._topid + " queue"
+                        log_string = "tweet text: " + tweet._text + ", query title: " + query._topid + ", rel_score: " + str(rel_score) + ", nol_score: " + str(nol_score) + "\n"
+                        log.write(log_string)
+        print "pipeline end"
     except ValueError, e:
-        print str(e)
+        print 'Error in pipeline(): '+ str(e)
         
 
     
