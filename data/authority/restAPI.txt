@@ -1,7 +1,16 @@
+#Info
 groupId: PKUICST.vwNV 
 
-clientId: mnHk0sTeKUcU
+clientId(selecting three of them is enough): 
+    mnHk0sTeKUcU
+    hmu8Yc5WpW7Z
+    taZPUG0Mz1QG
+    diBbxmttXAVe
 
 #Usage
+Get ClientID: curl -H 'Content-Type: application/json' --data '{"groupid":"PKUICST.vwNV","alias":"run1"}'  54.164.151.19:80/register/system
+Get Topic: curl -H 'Content-Type: application/json' 54.164.151.19:80/topics/mnHk0sTeKUcU
+Post: curl -X POST -H 'Content-Type: application/json'  54.164.151.19:80/tweet/MBXXX/738418531520352258/mnHk0sTeKUcU
 
+#Reference
 https://github.com/trecrts/trecrts-eval/tree/master/trecrts-server
