@@ -21,10 +21,11 @@ if __name__ == "__main__":
             cur.execute("SELECT * FROM raw WHERE is_process = 0")
             rows = cur.fetchall()
             for row in rows:
-                id, json_data = row[0], row[1]
+                id, json_data = str(row[0]), row[1]
+                print id
                 # deal with json_data
                 pipeline(json_data)
-                cur.execute("UPDATE raw SET is_process = 1 WHERE id = %d", (id,))
+                cur.execute("UPDATE raw SET is_process = 1 WHERE id = %s", (id,))
             conn.commit()
 
             # close db
@@ -35,8 +36,7 @@ if __name__ == "__main__":
             print "OK"
 
         except Exception, e:
-            # print state
-            print e
+            print str(e)
             
         # iterator every 10 seconds
         time.sleep(10)
