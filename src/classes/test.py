@@ -1,15 +1,35 @@
-from query import Query
-from tweet import Tweet
+import json
+
 import relation
+from trecjson import Query, Tweet
 
-q = Query("MB001", "A A B C", "", "")
-t1 = Tweet("A A B B C D D D")
-t2 = Tweet("A A B C C D")
 
-print(relation.similarity_q_t(q, t1))
+content = open('../../data/data15/topic.txt').read()
 
-print(relation.similarity_t_t(t1, t2))
+q_list = []
+query_json_list = json.loads(content)
+for query_json in query_json_list:
+    query_json_string = json.dumps(query_json)
+    q = Query(query_json_string)
+    if q.topid != None:
+        q_list.append(q)
 
-print(relation.similarity_t_t(t1, t1))
+for q in q_list:
+    print(q.topid)
+
+t_list = []
+for line in open('../../data/data15/example.txt'):
+    t = Tweet(line.strip())
+    if t.created_at != None and t.lang == 'en':
+        t_list.append(t)
+
+for t in t_list:
+    print(t.text)
+
+
+if len(q_list) > 0 and len(t_list) > 1:
+    print(relation.similarity_q_t(q_list[0], t_list[0]))
+    print(relation.similarity_t_t(t_list[0], t_list[1]))
+
 
 
