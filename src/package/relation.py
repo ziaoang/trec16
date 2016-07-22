@@ -1,6 +1,5 @@
 import math
 
-
 def jaccard(word_list_1, word_list_2):
     t1 = set(word_list_1)
     t2 = set(word_list_2)
@@ -26,23 +25,16 @@ def cos(vector_1, vector_2):
         return 0.0
     return a / math.sqrt(b * c)
 
-def dis(vector_1, vector_2):
-    res = 0.0
-    for i in range(len(vector_1)):
-        res += (vector_1[i] - vector_2[i]) ** 2
-    return math.sqrt(res)
-
 def similarity_q_t(query, tweet):
-    return 0.25 * jaccard(query.word_list, tweet.word_list) + \
-           0.25 * kl(query.distribution, tweet.distribution) + \
-           0.25 * cos(query.vector, tweet.vector) + \
-           0.25 * dis(query.vector, tweet.vector)
+    jaccard_score = jaccard(query.word_list, tweet.word_list)
+    kl_score = kl(query.distribution, tweet.distribution)
+    cos_score = cos(query.vector, tweet.vector)
+    return 0.33 * jaccard_score + 0.33 * kl_score + 0.33 * cos_score
 
 def similarity_t_t(tweet_1, tweet_2):
-    return 0.25 * jaccard(tweet_1.word_list, tweet_2.word_list) + \
-           0.25 * kl(tweet_1.distribution, tweet_2.distribution) + \
-           0.25 * cos(tweet_1.vector, tweet_2.vector) + \
-           0.25 * dis(tweet_1.vector, tweet_2.vector)
-
+    jaccard_score = jaccard(tweet_1.word_list, tweet_2.word_list)
+    sym_kl_score = sym_kl(tweet_1.distribution, tweet_2.distribution)
+    cos_score = cos(tweet_1.vector, tweet_2.vector)
+    return 0.33 * jaccard_score + 0.33 * sym_kl_score + 0.33 * cos_score
 
 

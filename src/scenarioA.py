@@ -8,14 +8,15 @@
 import json
 import time
 from datetime import datetime
-from src.classes.relation import *
-from src.classes.trecjson import Query, Tweet
-
-
-from src.utils import preprocess
-
+from package.query import Query
+from package.tweet import Tweet
+from package.relation import similarity_q_t, similarity_t_t
+from package.utils import load_stopword_set, load_vector_dict
 
 log = open("log.txt", "a+")
+
+stopword_set = load_stopword_set()
+vector_dict = load_vector_dict()
 
 def get_topics(file_path):
     query_list = []
@@ -24,7 +25,7 @@ def get_topics(file_path):
         query_json_list = json.loads(content)
         for query_json in query_json_list:
             query_json_string = json.dumps(query_json)
-            query = Query(query_json_string)
+            query = Query(query_json_string, stopword_set, vector_dict)
             if query.topid != None:
                 query_list.append(query)
     except Exception, e:
