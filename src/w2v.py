@@ -8,7 +8,7 @@ def load_sentences(file_path):
         for line in f:
             tweet = Tweet(line.strip(), set(), {})
             if tweet.created_at != None and tweet.lang == 'en':
-                if self.word_list != None and len(tweet.word_list) > 0:
+                if tweet.word_list != None and len(tweet.word_list) > 0:
                     sentences.append(tweet.word_list)
     return sentences
 
