@@ -16,7 +16,6 @@ from src.utils import preprocess
 
 
 log = open("log.txt", "a+")
-log.write("----------------------\n")
 
 def get_topics(file_path):
     query_list = []
