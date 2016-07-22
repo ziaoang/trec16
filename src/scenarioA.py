@@ -14,7 +14,6 @@ from package.relation import similarity_q_t, similarity_t_t
 from package.utils import load_stopword_set, load_vector_dict
 
 log = open("log.txt", "a+")
-log.write("----------------------\n")
 
 stopword_set = load_stopword_set()
 vector_dict = load_vector_dict()
