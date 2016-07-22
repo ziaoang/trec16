@@ -12,8 +12,9 @@ from package.query import Query
 from package.tweet import Tweet
 from package.relation import similarity_q_t, similarity_t_t
 from package.utils import load_stopword_set, load_vector_dict
+import logging
 
-log = open("log.txt", "a+")
+logging.basicConfig(filename='scenarioA.log', level=logging.INFO)
 
 stopword_set = load_stopword_set()
 vector_dict = load_vector_dict()
@@ -56,15 +57,18 @@ def get_threshold(file_path):
 
 def get_recommend_queue(query_id):
     queue = []
-    file_path = "src/result/" + query_id
+    tweet_dict = {}
+    file_path = "../data/data16/" + query_id
     try:
         with open(file_path, "r") as fin:
             for i, line in enumerate(fin):
-                tweet_id, timestamp, text, recommend_time = line.strip().split("\t")
-                if tweet_id in queue:
-                    print "Duplicated tweet_id in queue!"
-                    exit()
-                queue.append(Tweet(tweet_id, timestamp, text))
+                timestamp, lang, id, text, recommend_time = line.strip().split("\t")
+                tweet_dict['created_at'] = timestamp
+                tweet_dict['lang'] = lang
+                tweet_dict['id_str'] = id
+                tweet_dict['text'] = text
+                tweet_json = json.dumps(tweet_dict)
+                queue.append(Tweet(tweet_json, stopword_set, vector_dict))
     except Exception, e:
         print 'Error in get_recommend_queue(): '+ str(e)
         exit()
@@ -72,12 +76,13 @@ def get_recommend_queue(query_id):
         
 
 def update_recommend_queue(query_id, tweet):
-    file_path = "src/result/" + query_id
+    file_path = "../data/data16/" + query_id
     try:
         result = open(file_path, "a")
-        cur_time = datetime.datetime.utcnow()
-        string = tweet.id + "\t" + tweet.timestamp + "\t" \
-                 + tweet.text + "\t" + str(cur_time) + "\n"
+        cur_time = datetime.utcnow()
+        string =  tweet.created_at + "\t" + tweet.lang + "\t" \
+                  + tweet.id_str + "\t" + tweet.text + "\t"   \
+                  + str(cur_time) + "\n"
         result.write(string)
         result.close()
     except Exception, e:
@@ -126,23 +131,24 @@ def novel_strategy(strategy, cur_tweet, cur_queue):
 def pipeline(tweet_json):
     try:
         print "pipeline begin"
-        tweet = Tweet(tweet_json)
+        tweet = Tweet(tweet_json, stopword_set, vector_dict)
         if tweet.created_at != None and tweet.lang == 'en':
-            query_list = get_topics("data/data15/topic.txt")
-            threshold_dict = get_threshold("src/data/threshold.txt")
+            query_list = get_topics("../data/data15/topic.txt")
+            threshold_dict = get_threshold("../data/data16/threshold.txt")
             for query in query_list:
-                rel_score = similarity_q_t(query, tweet)
-                day_delta = day_index(2016, 8, 2)
-                # use for test
-                # if day_delta >= len(threshold_dict[query.topid]) or day_delta < 0:
                 if query.topid not in threshold_dict:
                     print "Current query topid: " + query.topid + " not in threshold_dict!"
                     exit()
+                rel_score = similarity_q_t(query, tweet)
+                
+                # Get relevance and novelty threshold
+                day_delta = day_index(2016, 8, 2)
+                # if day_delta >= len(threshold_dict[query.topid]) or day_delta < 0:
                 if day_delta >= len(threshold_dict[query.topid]):
                     print "day_delta invalid!"
                     exit()
-                # use for test
-                if day_delta < 0: day_delta = 0
+                if day_delta < 0: day_delta = 0    
+                
                 rel_nol_pair = threshold_dict[query.topid][day_delta].strip().split("/")
                 if len(rel_nol_pair) != 2:
                     print "Current query topid: " + query.topid + " rel_nol_pair split error!"
@@ -150,13 +156,14 @@ def pipeline(tweet_json):
                 rel_threshold = rel_nol_pair[0]
                 nol_threshold = rel_nol_pair[1]
 
+                # Compare with two thresholds
                 if rel_score < rel_threshold:
                     continue
                 cur_queue = get_recommend_queue(query.topid)
                 if len(cur_queue) == 0:
                     update_recommend_queue(query.topid, tweet)
-                    log_string = "tweet text: " + tweet._text + ", query title: " + query.topid + ", rel_score: " + str(rel_score) + "\n"
-                    log.write(log_string)
+                    log_string = "[tweet text: " + tweet.text + ", query title: " + query.topid + ", rel_score: " + str(rel_score) + "]"
+                    logging.info(log_string)
                 else:
                     # remain TO TEST
                     nol_score = novel_strategy(1, tweet, cur_queue)
@@ -164,11 +171,12 @@ def pipeline(tweet_json):
                     nol_score = novel_strategy(3, tweet, cur_queue)
                     if nol_score < nol_threshold:
                         update_recommend_queue(query.topid, tweet)
-                        log_string = "tweet text: " + tweet._text + ", query title: " + query.topid + ", rel_score: " + str(rel_score) + ", nol_score: " + str(nol_score) + "\n"
-                        log.write(log_string)
+                        log_string = "[tweet text: " + tweet.text + ", query title: " + query.topid + ", rel_score: " + str(rel_score) + ", nol_score: " + str(nol_score) + "]"
+                        logging.info(log_string)
         print "pipeline end"
     except ValueError, e:
         print 'Error in pipeline(): '+ str(e)
+        exit()
         
 
     
