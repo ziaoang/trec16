@@ -14,6 +14,25 @@ def kl(distribution_1, distribution_2):
 
 def sym_kl(distribution_1, distribution_2):
     return (kl(distribution_1, distribution_2) + kl(distribution_2, distribution_1)) / 2
+    
+def kl_jm(distribution_q, distribution_t, distribution_c, lamda):
+    res = 0.0
+    overlap = set(distribution_q.keys()) & set(distribution_t.keys()) & set(distribution_c.keys())
+    for key in overlap:
+        smooth = (1 - lamda) * distribution_t[key] + lamda * distribution_c[key]
+        res += distribution_q[key] * math.log(smooth)
+    return res
+
+# Notice, t_len is len(tweet.stem_list), different from len(distribution_t)
+def kl_dirichlet(distribution_q, distribution_t, distribution_c, mu, t_len):
+    res = 0.0
+    overlap = set(distribution_q.keys()) & set(distribution_t.keys()) & set(distribution_c.keys())
+    for key in overlap:
+        alpha = mu / (t_len + mu);
+        smooth = (1 - alpha) * distribution_t[key] + alpha * distribution_c
+        res += distribution_q[key] + math.log(smooth)
+    return res
+        
 
 def cos(vector_1, vector_2):
     a, b, c = 0.0, 0.0, 0.0

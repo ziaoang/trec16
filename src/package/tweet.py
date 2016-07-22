@@ -13,7 +13,7 @@ class Tweet(TrecJson):
             t = {}
             
         default_t = defaultdict(lambda: None, t)
-        self.json         = tweet_json
+        # self.json         = tweet_json
         self.created_at   = default_t['created_at']
         self.lang         = default_t['lang']
         self.id_str       = default_t['id_str']
@@ -28,5 +28,6 @@ class Tweet(TrecJson):
     
             self.nostop_list  = self.filter_stopword(self.word_list)
             self.stem_list    = self.stem(self.nostop_list)
+            self.stem_distri  = self.extract_distribution(self.stem_list)
 
 
