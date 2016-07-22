@@ -16,8 +16,8 @@ for query_json in query_json_list:
     if q.topid != None:
         q_list.append(q)
 
-for q in q_list:
-    print(q.topid)
+#for q in q_list:
+#    print(q.topid)
 
 t_list = []
 for line in open('../data/data15/example.txt'):
@@ -25,8 +25,8 @@ for line in open('../data/data15/example.txt'):
     if t.created_at != None and t.lang == 'en':
         t_list.append(t)
 
-for t in t_list:
-    print(t.id_str)
+#for t in t_list:
+#    print(t.id_str)
 
 
 if len(q_list) > 0 and len(t_list) > 1:

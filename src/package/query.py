@@ -6,16 +6,12 @@ class Query(TrecJson):
     def __init__(self, query_json, stopword_set, vector_dict):
         TrecJson.__init__(self, stopword_set, vector_dict)
 
-        print(query_json)
-
         t = None
         try:
             t = json.loads(query_json)
         except:
             t = {}
 
-        print(t)
-        
         default_t = defaultdict(lambda: None, t)
         self.topid        = default_t['topid']
         self.title        = default_t['title']
