@@ -55,10 +55,9 @@ def get_threshold(file_path):
     return result
 
 
-def get_recommend_queue(query_id):
+def get_recommend_queue(file_path):
     queue = []
     tweet_dict = {}
-    file_path = "../data/data16/" + query_id
     try:
         with open(file_path, "r") as fin:
             for i, line in enumerate(fin):
@@ -75,8 +74,7 @@ def get_recommend_queue(query_id):
     return queue    
         
 
-def update_recommend_queue(query_id, tweet):
-    file_path = "../data/data16/" + query_id
+def update_recommend_queue(file_path, tweet):
     try:
         result = open(file_path, "a")
         cur_time = datetime.utcnow()
@@ -159,9 +157,15 @@ def pipeline(tweet_json):
                 # Compare with two thresholds
                 if rel_score < rel_threshold:
                     continue
-                cur_queue = get_recommend_queue(query.topid)
+                # ScenarioB keep all relevant tweets
+                file_path = "../data/data16/B/" + query.topid
+                update_recommend_queue(file_path, tweet)
+                
+                # ScenarioA still need to compare with novelty threshold
+                file_path = "../data/data16/A/" + query.topid
+                cur_queue = get_recommend_queue(file_path)
                 if len(cur_queue) == 0:
-                    update_recommend_queue(query.topid, tweet)
+                    update_recommend_queue(file_path, tweet)
                     log_string = "[tweet text: " + tweet.text + ", query title: " + query.topid + ", rel_score: " + str(rel_score) + "]"
                     logging.info(log_string)
                 else:
@@ -170,7 +174,7 @@ def pipeline(tweet_json):
                     nol_score = novel_strategy(2, tweet, cur_queue)
                     nol_score = novel_strategy(3, tweet, cur_queue)
                     if nol_score < nol_threshold:
-                        update_recommend_queue(query.topid, tweet)
+                        update_recommend_queue(file_path, tweet)
                         log_string = "[tweet text: " + tweet.text + ", query title: " + query.topid + ", rel_score: " + str(rel_score) + ", nol_score: " + str(nol_score) + "]"
                         logging.info(log_string)
         print "pipeline end"

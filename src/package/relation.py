@@ -8,6 +8,7 @@ def jaccard(word_list_1, word_list_2):
 def kl(distribution_1, distribution_2):
     res = 0.0
     overlap = set(distribution_1.keys()) & set(distribution_2.keys())
+    if len(overlap) == 0: return 99999.0
     for key in overlap:
         res += distribution_1[key] * math.log(distribution_1[key] / distribution_2[key])
     return res
@@ -18,6 +19,7 @@ def sym_kl(distribution_1, distribution_2):
 def kl_jm(distribution_q, distribution_t, distribution_c, lamda):
     res = 0.0
     overlap = set(distribution_q.keys()) & set(distribution_t.keys()) & set(distribution_c.keys())
+    if len(overlap) == 0: return 99999.0
     for key in overlap:
         smooth = (1 - lamda) * distribution_t[key] + lamda * distribution_c[key]
         res += distribution_q[key] * math.log(smooth)
@@ -27,6 +29,7 @@ def kl_jm(distribution_q, distribution_t, distribution_c, lamda):
 def kl_dirichlet(distribution_q, distribution_t, distribution_c, mu, t_len):
     res = 0.0
     overlap = set(distribution_q.keys()) & set(distribution_t.keys()) & set(distribution_c.keys())
+    if len(overlap) == 0: return 99999.0
     for key in overlap:
         alpha = mu / (t_len + mu);
         smooth = (1 - alpha) * distribution_t[key] + alpha * distribution_c
@@ -34,6 +37,7 @@ def kl_dirichlet(distribution_q, distribution_t, distribution_c, mu, t_len):
     return res
         
 
+        
 def cos(vector_1, vector_2):
     a, b, c = 0.0, 0.0, 0.0
     for i in range(len(vector_1)):
