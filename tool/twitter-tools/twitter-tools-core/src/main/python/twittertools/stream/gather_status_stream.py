@@ -41,7 +41,7 @@ class TweetListener(StreamListener):
         warningHandler = logging.handlers.TimedRotatingFileHandler('warning.log',when='H',encoding='bz2',utc=True)
         warningHandler.setLevel(logging.WARN)
         self.logger.addHandler(warningHandler)
-        logging.captureWarnings(True);
+        logging.captureWarnings(True)
 
         consoleHandler = logging.StreamHandler()
         consoleHandler.setLevel(logging.WARN)
@@ -55,7 +55,7 @@ class TweetListener(StreamListener):
     def on_data(self,data):
         self.count+=1
         self.logger.info(data)
-        self.cache.append(data)
+        self.cache.append([data])
         if self.count % 1000 == 0:
             print "%d statuses processed" % self.count
             try:
