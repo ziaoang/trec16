@@ -16,8 +16,10 @@ for query_json in query_json_list:
     if q.topid != None:
         q_list.append(q)
 
-#for q in q_list:
-#    print(q.topid)
+for q in q_list:
+    print(q.topid)
+    print(q.vector)
+    break
 
 t_list = []
 for line in open('../data/data15/example.txt'):
