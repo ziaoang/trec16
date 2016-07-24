@@ -22,6 +22,11 @@ stopword_set = load_stopword_set()
 vector_dict = load_vector_dict()
 corpus_dict = load_corpus_dict()
 query_list = get_topics("../data/data15/topic.txt")
+
+def normalize(score):
+    max = 0.0
+    min = -40.0
+    return float(score - min) / (max - min)
     
 def calculate_score(input_file):
     try: 
@@ -37,10 +42,11 @@ def calculate_score(input_file):
                         dirichlet = kl_dirichlet(query.distribution, tweet.stem_distri, corpus_dict, 100, len(tweet.stem_list))
                         avg = (jm + dirichlet) / 2
                         cur_time = datetime.utcnow()
-                        string =  tweet.created_at + "\t" + tweet.lang + "\t" \
-                                  + tweet.id_str   + "\t" + tweet.text + "\t" \
-                                  + str(cur_time)  + "\t" + str(jm)    + "\t" \
-                                  + str(dirichlet) + "\t" + str(avg)   + "\n"
+                        string =  tweet.created_at + "\t" + tweet.lang          + "\t" \
+                                  + tweet.id_str   + "\t" + tweet.text          + "\t" \
+                                  + str(cur_time)  + "\t" + str(normalize(jm))  + "\t" \
+                                  + str(normalize(dirichlet)) + "\t" \
+                                  + str(normalize(avg))       + "\n"
                         result.write(string)
                         # result.close()                          
     except Exception as e:
