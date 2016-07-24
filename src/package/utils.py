@@ -9,3 +9,15 @@ def load_stopword_set():
 
 def load_vector_dict():
     return {}
+
+def load_corpus_dict():
+    absolute_path = os.path.join(os.path.dirname(__file__) + \ 
+                    "/../../data/data15/1507ALL.txt")
+    corpus_dict = {}
+    with open(absolute_path, "r") as fin:
+        for line in fin:
+            word, prob = line.strip().split("\t")
+            if word not in corpus_dict:
+                corpus_dict[word] = 0
+            corpus_dict[word] += prob
+    return corpus_dict
