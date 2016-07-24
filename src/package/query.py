@@ -25,5 +25,6 @@ class Query(TrecJson):
     
             self.nostop_list  = self.filter_stopword(self.word_list)
             self.stem_list    = self.stem(self.nostop_list)
+            self.stem_distri  = self.extract_distribution(self.stem_list)
 
 

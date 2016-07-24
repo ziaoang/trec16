@@ -18,23 +18,31 @@ def sym_kl(distribution_1, distribution_2):
     
 def kl_jm(distribution_q, distribution_t, distribution_c, lamda):
     res = 0.0
-    overlap = set(distribution_q.keys()) & set(distribution_t.keys()) & set(distribution_c.keys())
-    if len(overlap) == 0: return -99999.0
-    for key in overlap:
-        smooth = (1 - lamda) * distribution_t[key] + lamda * distribution_c[key]
-        res += distribution_q[key] * math.log(smooth)
-    return res
+    flag = False
+    for key in distribution_q:
+        smooth = 0
+        if key in distribution_t: smooth += (1 - lamda) * distribution_t[key]
+        if key in distribution_c: smooth += lamda * distribution_c[key]
+        if smooth != 0: 
+            flag = True
+            res += distribution_q[key] * math.log(smooth)
+    if flag: return res
+    else: return -999999.0
 
 # Notice, t_len is len(tweet.stem_list), different from len(distribution_t)
 def kl_dirichlet(distribution_q, distribution_t, distribution_c, mu, t_len):
     res = 0.0
-    overlap = set(distribution_q.keys()) & set(distribution_t.keys()) & set(distribution_c.keys())
-    if len(overlap) == 0: return -99999.0
-    for key in overlap:
-        alpha = mu / (t_len + mu);
-        smooth = (1 - alpha) * distribution_t[key] + alpha * distribution_c
-        res += distribution_q[key] + math.log(smooth)
-    return res
+    flag = False
+    for key in distribution_q:
+        smooth = 0
+        alpha = float(mu) / (t_len + mu);
+        if key in distribution_t: smooth += (1 - alpha) * distribution_t[key]
+        if key in distribution_c: smooth += alpha * distribution_c[key]
+        if smooth != 0: 
+            flag = True
+            res += distribution_q[key] + math.log(smooth)
+    if flag: return res
+    else: return -999999.0
         
 
         
