@@ -11,13 +11,14 @@ from datetime import datetime
 from package.query import Query
 from package.tweet import Tweet
 from package.relation import similarity_q_t, similarity_t_t
-from package.utils import load_stopword_set, load_vector_dict
+from package.utils import load_stopword_set, load_vector_dict, load_corpus_dict
 import logging
 
 logging.basicConfig(filename='scenarioA.log', level=logging.INFO)
 
 stopword_set = load_stopword_set()
 vector_dict = load_vector_dict()
+corpus_dict = load_corpus_dict()
 
 def get_topics(file_path):
     query_list = []
@@ -112,9 +113,7 @@ def novel_strategy(strategy, cur_tweet, cur_queue):
     max_score = 0.0
     sum_score = 0.0
     for tweet in cur_queue:
-        s1 = similarity_t_t(cur_tweet, tweet)
-        s2 = similarity_t_t(tweet, cur_tweet)
-        score = float(s1 + s2) / 2
+        score = similarity_t_t(cur_tweet, tweet, corpus_dict)
         score_list.append(score)
         if score > max_score: max_score = score
         if score < min_score: min_score = score
@@ -137,7 +136,7 @@ def pipeline(tweet_json):
                 if query.topid not in threshold_dict:
                     print "Current query topid: " + query.topid + " not in threshold_dict!"
                     exit()
-                rel_score = similarity_q_t(query, tweet)
+                rel_score = similarity_q_t(query, tweet, corpus_dict)
                 
                 # Get relevance and novelty threshold
                 day_delta = day_index(2016, 8, 2)

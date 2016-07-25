@@ -73,16 +73,32 @@ def cos(vector_1, vector_2):
         return 0.0
     return a / math.sqrt(b * c)
 
-def similarity_q_t(query, tweet):
-    jaccard_score = jaccard(query.word_list, tweet.word_list)
-    kl_score = kl(query.distribution, tweet.distribution)
-    cos_score = cos(query.vector, tweet.vector)
-    return 0.33 * jaccard_score + 0.33 * kl_score + 0.33 * cos_score
+def similarity_q_t(query, tweet, corpus_dict):
+    distribution_q = query.stem_distri
+    distribution_t = tweet.stem_distri
+    distribution_c = corpus_dict
+    mu = 100
+    t_len = len(tweet.stem_list)
+    return kl_dirichlet(distribution_q, distribution_t, distribution_c, mu, t_len)
+    # jaccard_score = jaccard(query.word_list, tweet.word_list)
+    # kl_score = kl(query.distribution, tweet.distribution)
+    # cos_score = cos(query.vector, tweet.vector)
+    # return 0.33 * jaccard_score + 0.33 * kl_score + 0.33 * cos_score
+    
 
-def similarity_t_t(tweet_1, tweet_2):
-    jaccard_score = jaccard(tweet_1.word_list, tweet_2.word_list)
-    sym_kl_score = sym_kl(tweet_1.distribution, tweet_2.distribution)
-    cos_score = cos(tweet_1.vector, tweet_2.vector)
-    return 0.33 * jaccard_score + 0.33 * sym_kl_score + 0.33 * cos_score
+def similarity_t_t(tweet_1, tweet_2, corpus_dict):
+    distribution_q = tweet_1.stem_distri
+    distribution_t = tweet_2.stem_distri
+    distribution_c = corpus_dict
+    mu = 100
+    t_len = len(tweet_2.stem_list)
+    s1 = kl_dirichlet(distribution_q, distribution_t, distribution_c, mu, t_len)
+    t_len = len(tweet_1.stem_list)
+    s1 = kl_dirichlet(distribution_t, distribution_q, distribution_c, mu, t_len)
+    return float(s1 + s2) / 2
+    # jaccard_score = jaccard(tweet_1.word_list, tweet_2.word_list)
+    # sym_kl_score = sym_kl(tweet_1.distribution, tweet_2.distribution)
+    # cos_score = cos(tweet_1.vector, tweet_2.vector)
+    # return 0.33 * jaccard_score + 0.33 * sym_kl_score + 0.33 * cos_score
 
 
