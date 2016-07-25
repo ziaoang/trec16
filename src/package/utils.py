@@ -11,7 +11,7 @@ def load_vector_dict():
     return {}
 
 def load_corpus_dict():
-    absolute_path = os.path.join(os.path.dirname(__file__) + "/../../data/data15/1507ALL.txt")
+    absolute_path = os.path.join(os.path.dirname(__file__) + "/../../data/data15/150713_19.txt")
     corpus_dict = {}
     with open(absolute_path, "r") as fin:
         for line in fin:
