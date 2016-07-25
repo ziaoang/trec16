@@ -3,7 +3,7 @@
 # FILE:     score.py
 # ROLE:     TODO (some explanation)
 # CREATED:  2016-07-24 11:47:05
-# MODIFIED: 2016-07-24 11:47:06
+# MODIFIED: 2016-07-25 19:14:23
 
 import gzip
 import sys
@@ -25,8 +25,9 @@ query_list = get_topics("../data/data15/topic.txt")
 
 def normalize(score):
     max = 0.0
-    min = -40.0
+    min = -20.0
     return float(score - min) / (max - min)
+
     
 def calculate_score(input_file):
     try: 
@@ -40,13 +41,16 @@ def calculate_score(input_file):
                         result = open(write_file, "a")
                         jm = kl_jm(query.distribution, tweet.stem_distri, corpus_dict, 0.2)
                         dirichlet = kl_dirichlet(query.distribution, tweet.stem_distri, corpus_dict, 100, len(tweet.stem_list))
-                        avg = (jm + dirichlet) / 2
+                        if jm < -20 or dirichlet < -20: continue
+                        #normalize
+                        jm_normal = normalize(jm)
+                        dirichlet_normal = normalize(dirichlet)
+                        avg = (jm_normal + dirichlet_normal) / 2
                         cur_time = datetime.utcnow()
-                        string =  tweet.created_at + "\t" + tweet.lang          + "\t" \
-                                  + tweet.id_str   + "\t" + tweet.text          + "\t" \
-                                  + str(cur_time)  + "\t" + str(normalize(jm))  + "\t" \
-                                  + str(normalize(dirichlet)) + "\t" \
-                                  + str(normalize(avg))       + "\n"
+                        string =  tweet.created_at + "\t" + tweet.lang     + "\t" \
+                                  + tweet.id_str   + "\t" + tweet.text     + "\t" \
+                                  + str(cur_time)  + "\t" + str(jm_normal) + "\t" \
+                                  + str(dirichlet_normal) + "\t" + str(avg)+ "\n"
                         result.write(string)
                         # result.close()                          
     except Exception as e:
