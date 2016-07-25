@@ -21,10 +21,9 @@ class TrecJson:
 
     # text level
     def filter_non_ascii(self, text):
-        return re.sub(r'[^\x00-\x7F]+', ' ', text)
-    
-    def merge_space(self, text):
-        return re.sub(r'\s+', ' ', text).strip()
+        text = re.sub(r'[^\x00-\x7F]+', ' ', text)
+        text = re.sub(r'\s+', ' ', text).strip()
+        return text
     
     def filter_twitter_label(self, text):
         if text == '': return text
@@ -39,13 +38,14 @@ class TrecJson:
         return ' '.join(out)
 
     def extract_plain_text(self, text):
-        text_1 = self.filter_non_ascii(text)
-        text_2 = self.merge_space(text_1)
-        text_3 = self.filter_twitter_label(text_2)
-        return text_3
+        text = self.filter_non_ascii(text)
+        text = self.filter_twitter_label(text)
+        return text
     
     def extract_word_list(self, text):
-        return re.sub(r'[^a-zA-Z]+', ' ', text).strip().lower().split(' ')
+        text = re.sub(r'[^a-zA-Z]+', ' ', text).strip().lower()
+        if text == '': return []
+        return text.split(' ')
 
     # word list level
     def filter_stopword(self, word_list):
@@ -56,8 +56,11 @@ class TrecJson:
         return res
     
     def stem(self, word_list):
+        res = []
         porter = nltk.PorterStemmer()
-        return [porter.stem(w) for w in word_list]
+        for w in word_list:
+            res.append(porter.stem(w))
+        return res
 
     def extract_distribution(self, word_list):
         res = {}
@@ -84,7 +87,8 @@ class TrecJson:
                         res[i] += vector[i]
                 count += 1
         for i in range(len(res)):
-            res[i] = res[i] / count
+            res[i] /= count
         return res
+
 
 
