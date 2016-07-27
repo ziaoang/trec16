@@ -67,7 +67,7 @@ class TweetListener(StreamListener):
             try:
                 insert_data = []
                 for raw_json in self.cache:
-                    t = Tweet(raw_json, stopword_set, {})
+                    t = Tweet(raw_json, stopword_set)
                     if t.is_valid:
                         insert_data.append([t.created_at, t.id_str, " ".join(t.word_list), " ".join(t.stem_list)])
                 if len(insert_data) > 0:
@@ -87,7 +87,6 @@ class TweetListener(StreamListener):
         self.logger.warn(str(exception))
 
 if __name__ == '__main__':
-    '''
     listener = TweetListener()
     auth = OAuthHandler(consumer_key,consumer_secret)
     auth.set_access_token(access_token,access_token_secret)
@@ -99,6 +98,6 @@ if __name__ == '__main__':
         except Exception as ex:
             print str(ex)
             pass
-    '''
-    print "hello world"
+
+
 

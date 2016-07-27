@@ -12,7 +12,7 @@ class Tweet(TrecJson):
             self.id_str       = t['id_str']
             self.text         = t['text']
             
-            if self.lang == 'en'            
+            if self.lang == 'en':
                 self.plain_text   = self.extract_plain_text(self.text)
                 self.word_list    = self.extract_word_list(self.plain_text)
                 self.stem_list    = self.stem(self.filter_stopword(self.word_list))
