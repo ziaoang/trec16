@@ -7,6 +7,7 @@
 
 import json
 import time
+import os
 from datetime import datetime
 from package.query import Query
 from package.tweet import Tweet
@@ -14,7 +15,7 @@ from package.relation import similarity_q_t, similarity_t_t
 from package.utils import load_stopword_set, load_vector_dict, load_corpus_dict
 import logging
 
-logging.basicConfig(filename='scenarioA.log', level=logging.INFO)
+logging.basicConfig(filename='scenarioA2.log', level=logging.INFO)
 
 stopword_set = load_stopword_set()
 vector_dict = load_vector_dict()
@@ -28,8 +29,10 @@ def get_topics(file_path):
         for query_json in query_json_list:
             query_json_string = json.dumps(query_json)
             query = Query(query_json_string, stopword_set, vector_dict)
-            if query.topid != None:
-                query_list.append(query)
+            if not query.is_valid:  
+                print "Error in get_topics(), invalid query!"
+                exit()
+            query_list.append(query)
     except Exception, e:
         print "Error in get_topics(), " + str(e)
     return query_list
@@ -57,6 +60,7 @@ def get_threshold(file_path):
 
 
 def get_recommend_queue(file_path):
+    if not os.path.isfile(file_path): return []
     queue = []
     tweet_dict = {}
     try:
@@ -80,7 +84,7 @@ def update_recommend_queue(file_path, tweet):
         result = open(file_path, "a")
         cur_time = datetime.utcnow()
         string =  tweet.created_at + "\t" + tweet.lang + "\t" \
-                  + tweet.id_str + "\t" + tweet.text + "\t"   \
+                  + tweet.id_str + "\t" + tweet.plain_text + "\t"   \
                   + str(cur_time) + "\n"
         result.write(string)
         result.close()
@@ -129,7 +133,7 @@ def pipeline(tweet_json):
     try:
         print "pipeline begin"
         tweet = Tweet(tweet_json, stopword_set, vector_dict)
-        if tweet.created_at != None and tweet.lang == 'en':
+        if tweet.is_valid:
             query_list = get_topics("../data/data15/topic.txt")
             threshold_dict = get_threshold("../data/data16/threshold.txt")
             for query in query_list:
@@ -150,12 +154,14 @@ def pipeline(tweet_json):
                 if len(rel_nol_pair) != 2:
                     print "Current query topid: " + query.topid + " rel_nol_pair split error!"
                     exit()
-                rel_threshold = rel_nol_pair[0]
-                nol_threshold = rel_nol_pair[1]
+                rel_threshold = float(rel_nol_pair[0])
+                nol_threshold = float(rel_nol_pair[1])
 
                 # Compare with two thresholds
                 if rel_score < rel_threshold:
                     continue
+                
+                # logging.info("rel_score: " + str(rel_score))
                 # ScenarioB keep all relevant tweets
                 file_path = "../data/data16/B/" + query.topid
                 update_recommend_queue(file_path, tweet)
@@ -165,16 +171,22 @@ def pipeline(tweet_json):
                 cur_queue = get_recommend_queue(file_path)
                 if len(cur_queue) == 0:
                     update_recommend_queue(file_path, tweet)
-                    log_string = "[tweet text: " + tweet.text + ", query title: " + query.topid + ", rel_score: " + str(rel_score) + "]"
+                    log_string = "[tweet text: " + tweet.plain_text + ", query title: " + query.title + ", rel_score: " + str(rel_score) + "]"
                     logging.info(log_string)
                 else:
                     # remain TO TEST
                     nol_score = novel_strategy(1, tweet, cur_queue)
-                    nol_score = novel_strategy(2, tweet, cur_queue)
-                    nol_score = novel_strategy(3, tweet, cur_queue)
+                    # nol_score = novel_strategy(2, tweet, cur_queue)
+                    # nol_score = novel_strategy(3, tweet, cur_queue)
+                    
                     if nol_score < nol_threshold:
+                        # print nol_score
+                        # print type(nol_score)
+                        # print nol_threshold
+                        # print type(nol_threshold)
+                        # time.sleep(5)
                         update_recommend_queue(file_path, tweet)
-                        log_string = "[tweet text: " + tweet.text + ", query title: " + query.topid + ", rel_score: " + str(rel_score) + ", nol_score: " + str(nol_score) + "]"
+                        log_string = "[tweet text: " + tweet.plain_text + ", query title: " + query.title + ", rel_score: " + str(rel_score) + ", nol_score: " + str(nol_score) + "]"
                         logging.info(log_string)
         print "pipeline end"
     except ValueError, e:

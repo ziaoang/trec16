@@ -10,6 +10,8 @@ def load_stopword_set():
     return stopword_set
 
 def load_vector_dict():
+    # Use for test
+    return {}
     print("load word2vec ...")
     absolute_path = "/index15/w2v/w2v.txt"
     vector_dict = {}
@@ -28,7 +30,8 @@ def load_vector_dict():
     return vector_dict
 
 def load_corpus_dict():
-    absolute_path = os.path.join(os.path.dirname(__file__) + "/../../data/data15/1507ALL.txt")
+    print("load corpus ...")
+    absolute_path = os.path.join(os.path.dirname(__file__) + "/../../data/data15/1507ALL2.txt")
     corpus_dict = {}
     with open(absolute_path, "r") as fin:
         for line in fin:
@@ -36,4 +39,7 @@ def load_corpus_dict():
             if word not in corpus_dict:
                 corpus_dict[word] = 0
             corpus_dict[word] += float(prob)
+    print("load corpus over")
     return corpus_dict
+    
+
