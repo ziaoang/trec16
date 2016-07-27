@@ -19,12 +19,18 @@ from tweepy import Stream
 import logging
 import logging.handlers
 import MySQLdb
+import sys
+sys.path.append('../../../../../../../../src')
+from package.tweet import Tweet
+from package.utils import load_stopword_set
 
 consumer_key="cYB00c5FkSbCY2oMyAqQ"
 consumer_secret="eSg9pvRc1Q57yzH8W0cj2feziw7dUfvKyW3QzKPsBN4"
 
 access_token="1661733726-nkRPTWH4UFi2rYfhr7qKM1P3Mo8OaMyVYdyjGcB"
 access_token_secret="lt5GOQsOOBdJVRsCyOCdQdYnDkpJcsK1YMq93E8Y0"
+
+stopword_set = load_stopword_set()
 
 class TweetListener(StreamListener):
 
@@ -55,18 +61,24 @@ class TweetListener(StreamListener):
     def on_data(self,data):
         self.count+=1
         self.logger.info(data)
-        self.cache.append([data])
+        self.cache.append(data)
         if self.count % 1000 == 0:
             print "%d statuses processed" % self.count
             try:
-                conn=MySQLdb.connect(host='localhost',user='root',passwd='webkdd',db='trec16',port=3306)
-                cur=conn.cursor()
-                cur.executemany('INSERT INTO raw (json) VALUES (%s)',self.cache)
-                conn.commit()
-                cur.close()
-                conn.close()
+                insert_data = []
+                for raw_json in self.cache:
+                    t = Tweet(raw_json, stopword_set, {})
+                    if t.is_valid:
+                        insert_data.append([t.created_at, t.id_str, " ".join(t.word_list), " ".join(t.stem_list)])
+                if len(insert_data) > 0:
+                    conn=MySQLdb.connect(host='localhost',user='root',passwd='webkdd',db='trec16',port=3306)
+                    cur=conn.cursor()
+                    cur.executemany('INSERT INTO raw (created_at, id_str, word_list_str, stem_list_str) VALUES (%s, %s, %s, %s)', insert_data)
+                    conn.commit()
+                    cur.close()
+                    conn.close()
                 self.cache = []
-                print "OK"
+                print "%d tweets are inserted" % len(insert_data)
             except Exception, e:
                 print e
         return True
@@ -75,6 +87,7 @@ class TweetListener(StreamListener):
         self.logger.warn(str(exception))
 
 if __name__ == '__main__':
+    '''
     listener = TweetListener()
     auth = OAuthHandler(consumer_key,consumer_secret)
     auth.set_access_token(access_token,access_token_secret)
@@ -86,5 +99,6 @@ if __name__ == '__main__':
         except Exception as ex:
             print str(ex)
             pass
-
+    '''
+    print "hello world"
 
