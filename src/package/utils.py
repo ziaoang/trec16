@@ -31,15 +31,17 @@ def load_vector_dict():
 
 def load_corpus_dict():
     print("load corpus ...")
-    absolute_path = os.path.join(os.path.dirname(__file__) + "/../../data/data15/1507ALL2.txt")
     corpus_dict = {}
-    with open(absolute_path, "r") as fin:
-        for line in fin:
-            word, prob = line.strip().split("\t")
-            if word not in corpus_dict:
-                corpus_dict[word] = 0
-            corpus_dict[word] += float(prob)
+    total_count = 0
+    line_no = 0
+    for line in open("/index15/tf/tf_raw.txt"):
+        line_no += 1
+        if line_no == 1:
+            total_count = float(line.strip())
+        else:
+            t = line.strip().split('\t')
+            corpus_dict[t[0]] = float(t[1]) / total_count
     print("load corpus over")
     return corpus_dict
-    
+
 
