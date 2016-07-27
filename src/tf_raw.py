@@ -17,7 +17,7 @@ for w in tf:
     to_sort.append([w, tf[w]])
 to_sort.sort(key=lambda x: x[1], reverse=True)
 
-df = open("../data/tf_raw.dat", "w")
+df = open("/index15/tf/tf_raw.dat", "w")
 df.write("%d\n" % total_count)
 for t in to_sort:
     df.write("%s\t%d\n" % (t[0], t[1]))
