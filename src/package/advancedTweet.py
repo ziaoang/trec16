@@ -11,7 +11,7 @@ class AdvancedTweet:
         self.word_distri  = self.extract_distribution(self.word_list)
         self.stem_list    = stem_list_str.split(' ')
         self.stem_distri  = self.extract_distribution(self.stem_list)
-        self.vector       = self.extract_vector(self.word_list)
+        #self.vector       = self.extract_vector(self.word_list)
 
 
 
