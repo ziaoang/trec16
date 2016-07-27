@@ -1,6 +1,6 @@
 from trecjson import TrecJson
 
-class AdvancedTweet:
+class AdvancedTweet(TrecJson):
     def __init__(self, created_at, id_str, word_list_str, stem_list_str, vector_dict):
         TrecJson.__init__(self, set(), vector_dict)
 

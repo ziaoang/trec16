@@ -5,7 +5,7 @@ from package.utils import load_stopword_set
 
 stopword_set = load_stopword_set()
 
-df = open("/index15/preprocess/1507_filtered.txt", "w")
+df = open("/index15/preprocess/preprocess_1507.txt", "w")
 
 def single_file(file_path):
     with bz2.BZ2File(file_path) as f:

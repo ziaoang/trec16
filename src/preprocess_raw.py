@@ -4,7 +4,7 @@ from package.utils import load_stopword_set
 
 stopword_set = load_stopword_set()
 
-df = open("/index15/preprocess/raw_filtered.txt", "w")
+df = open("/index15/preprocess/preprocess_raw.txt", "w")
 
 def single_file(file_path):
     with gzip.open(file_path, 'rt') as f:
