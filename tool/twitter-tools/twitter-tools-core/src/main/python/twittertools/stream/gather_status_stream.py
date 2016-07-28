@@ -73,7 +73,7 @@ class TweetListener(StreamListener):
                 if len(insert_data) > 0:
                     conn=MySQLdb.connect(host='localhost',user='root',passwd='webkdd',db='trec16',port=3306)
                     cur=conn.cursor()
-                    cur.executemany('INSERT INTO raw (created_at, id_str, word_list_str, stem_list_str) VALUES (%s, %s, %s, %s)', insert_data)
+                    cur.executemany('INSERT INTO preprocess (created_at, id_str, word_list_str, stem_list_str) VALUES (%s, %s, %s, %s)', insert_data)
                     conn.commit()
                     cur.close()
                     conn.close()
