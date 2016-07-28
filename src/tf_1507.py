@@ -2,7 +2,7 @@ from collections import defaultdict
 
 tf = defaultdict(int)
 line_no = 0
-for line in open("/index15/preprocess/preprocess_raw.txt"):
+for line in open("/index15/preprocess/preprocess_1507.txt"):
     line_no += 1
     if line_no % 100000 == 0:
         print "%d lines" % line_no
@@ -17,7 +17,7 @@ for w in tf:
     to_sort.append([w, tf[w]])
 to_sort.sort(key=lambda x: x[1], reverse=True)
 
-df = open("/index15/tf/tf_raw.txt", "w")
+df = open("/index15/tf/tf_1507.txt", "w")
 df.write("%d\n" % total_count)
 for t in to_sort:
     df.write("%s\t%d\n" % (t[0], t[1]))
