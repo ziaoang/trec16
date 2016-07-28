@@ -5,82 +5,63 @@
 # CREATED:  2016-07-24 11:47:05
 # MODIFIED: 2016-07-25 19:14:23
 
-import gzip
 import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 import time
-from datetime import datetime
-from package.tweet import Tweet
-from package.query import Query
-from package.relation import kl_jm, kl_dirichlet
-from package.utils import load_stopword_set, load_vector_dict, load_corpus_dict
-from scenarioA import get_topics
-from corpus import conver
 import logging
+from datetime import datetime
+from package.advancedTweet import AdvancedTweet 
+from package.query import Query
+from package.relation import similarity_q_t
+from package.utils import *
 
-logging.basicConfig(filename='score.log', level=logging.INFO)
 
 # remain to figure out
 print "---begin--"
 stopword_set = load_stopword_set()
 vector_dict = load_vector_dict()
 corpus_dict = load_corpus_dict()
-query_list = get_topics("../data/data15/topic.txt")
-selected_query = [339,243,242,331,392,391,389,278,253,236,254,255,379,344,405,354,326,324,400,366,348,284,287,448,401,305,262,260,267,265,228,227,226,409,249,248,383,362,357,416,246,353,377,298,439,371,384,434,432,419,359]
-full_seleted = []
-for id in selected_query:
-    full_seleted.append("MB" + str(id))
-selected_query_set = set(full_seleted)
+query_list = load_query_list()
+selected_query_set = selected_queryid_set()
+logging.basicConfig(filename='score.log', level=logging.INFO)
 print "---end--"
 
-def normalize(score):
-    max = 0.0
-    min = -20.0
-    return float(score - min) / (max - min)
 
-def list_to_string(stem_list):
-    res = ""
-    for word in stem_list:
-        res += word + " "
-    return res
+def overlap(query_stem_list, tweet_stem_list):
+    for w in tweet_stem_list:
+        if w in set(query_stem_list):
+            return True
+    return False
     
 def calculate_score(input_file):
-    try: 
-        with gzip.open(input_file,'r') as fin:
-            for i, line in enumerate(fin):
-                if i % 100 == 0: print i
-                tweet = Tweet(line, stopword_set, vector_dict)
-                if tweet.is_valid:
-                    for query in query_list:
-                        if query.topid not in selected_query_set: continue
-                        write_file = "../data/data15/score/" + query.topid
-                        result = open(write_file, "a")
-                        jm = kl_jm(query.stem_distri, tweet.stem_distri, corpus_dict, 0.2)
-                        dirichlet = kl_dirichlet(query.stem_distri, tweet.stem_distri, corpus_dict, 100, len(tweet.stem_list))
-                        if jm < -20 or dirichlet < -20:
-                            log_string = "[tweet text: " + tweet.plain_text + ", query title: " + query.title + ", jm_score: " + str(jm) + ", dirichlet: " + str(dirichlet) + "]"
-                            logging.info(log_string)
-                            continue
-                        #normalize
-                        jm_normal = normalize(jm)
-                        dirichlet_normal = normalize(dirichlet)
-                        avg = (jm_normal + dirichlet_normal) / 2
-                        string =  tweet.created_at + "\t" + tweet.lang            + "\t" \
-                                  + tweet.id_str   + "\t" + tweet.plain_text      + "\t" \
-                                  + list_to_string(tweet.stem_list)               + "\t" \
-                                  + str(jm_normal) + "\t" + str(dirichlet_normal) + "\n"
-                        result.write(string)
-                        # result.close()                          
-    except Exception as e:
-        print str(e) 
+    start = time.clock()
+    with open(input_file,'r') as fin:
+        for i, line in enumerate(fin):
+            if i % 1000 == 0: print i
+            timestamp, id, plain_text, stem_list_str = line.strip().split("\t")
+            tweet = AdvancedTweet(timestamp, id, plain_text, stem_list_str, vector_dict)
+            for query in query_list:
+                if query.topid not in selected_query_set: continue
+                if not overlap(query.stem_list, tweet.stem_list): continue
+                write_file = "../data/data15/score2/" + query.topid
+                result = open(write_file, "a")
+                jm = similarity_q_t(query, tweet, corpus_dict, "jm")
+                dirichlet = similarity_q_t(query, tweet, corpus_dict, "dirichlet")
+                if jm < -20 or dirichlet < -20:
+                    log_string = "[" + tweet.id_str + "\t" + " ".join(tweet.stem_list) + "\t" + query.topid + "\t" + query.title + "\t" + str(jm) + "\t" + str(dirichlet) + "]"
+                    logging.info(log_string)
+                    continue
+                string =  tweet.created_at + "\t" + tweet.id_str + "\t"  \
+                          + " ".join(tweet.word_list) + "\t"             \
+                          + " ".join(tweet.stem_list) + "\t"             \
+                          + str(jm) + "\t" + str(dirichlet) + "\n"
+                result.write(string)
+                # result.close()                          
+    end  = time.clock()
+    print "calculate score: %f s" % (end - start)
 
 
 if __name__ == "__main__":
-    for day in range(20, 30):
-        print "Current day: ", day
-        for hour in range(0, 24):
-            hour = conver(hour)
-            print "Current hour: ", hour
-            input_file = "/index15/raw/statuses.log.2015-07-" + str(day) + "-" + str(hour) + ".gz"
-            calculate_score(input_file)
+    input_file = "/index15/preprocess/filter_raw.txt"
+    calculate_score(input_file)
