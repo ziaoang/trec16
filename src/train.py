@@ -29,41 +29,45 @@ def single_query(file_path, topid):
         if dirichlet_max < float(dirichlet): dirichlet_max = float(dirichlet)
     # logging.info(file_path + "\t" + str(jm_min) + "\t" + str(jm_max) + "\t" + str(dirichlet_min) + "\t" + str(dirichlet_max))
     
-    jm_begin = float("{0:.2f}".format(jm_min + (jm_max - jm_min) * 0))
+    jm_begin = float("{0:.2f}".format(jm_min))
     jm_step = float("{0:.2f}".format((jm_max - jm_begin) / 10))
-    dirichlet_begin = float("{0:.2f}".format(dirichlet_min + (dirichlet_max - dirichlet_min) * 0))
+    dirichlet_begin = float("{0:.2f}".format(dirichlet_min))
     dirichlet_step = float("{0:.2f}".format((dirichlet_max - dirichlet_min) / 10))
     
-    
-    while jm_begin < jm_max:
+    count = 0
+    while jm_begin < jm_max: 
+        jm_begin += jm_step
+        dirichlet_begin += dirichlet_step
+        count += 1
+        if count < 4: continue
         # print "jm_begin: ", jm_begin
         # print "dirichlet_begin: ", dirichlet_begin
-        wf1 = "../data/data15/res/R" + topid + "_JR" + str(jm_begin)
-        wf2 = "../data/data15/res/R" + topid + "_DR" + str(dirichlet_begin)
+        wf1 = "../data/data15/res/R/" + topid + "_JR" + str(jm_begin)
+        wf2 = "../data/data15/res/R/" + topid + "_DR" + str(dirichlet_begin)
         r1 = open(wf1, "w")
         r2 = open(wf2, "w")
         for line in content:
             timestamp, id, plain_text, stem_text, jm, dirichlet = line.strip().split("\t")
             if float(jm) > jm_begin:
-                string =  timestamp + "\t" + id      + "\t" + plain_text     + "\t" + \
-                          stem_text + "\t" + str(jm) + "\t" + str(dirichlet) + "\n"
+                string =  timestamp  + "\t" + id + "\t"         \
+                          plain_text + "\t" + stem_text + "\t" + \
+                          str(jm)    + "\t" + str(dirichlet) + "\n"
                 r1.write(string)
             if float(dirichlet) > dirichlet_begin:
-                string =  timestamp + "\t" + id      + "\t" + plain_text     + "\t" + \
-                          stem_text + "\t" + str(jm) + "\t" + str(dirichlet) + "\n"
+                string =  timestamp  + "\t" + id + "\t"         \
+                          plain_text + "\t" + stem_text + "\t" + \
+                          str(jm)    + "\t" + str(dirichlet) + "\n"
                 r2.write(string)          
-        jm_begin += jm_step
-        dirichlet_begin += dirichlet_step
-        
-    
 
+                
 if __name__ == "__main__":
     base_path = "../data/data15/score2/"
-    topid = "MB226"
-    full_path = base_path + topid
-    single_query(full_path, topid)
-    # for topid in selected_query_set:
-        # print topid
-        # full_path = base_path + topid
-        # if os.path.isfile(full_path):
-            # single_query(full_path, topid)
+    # Use for test
+    # topid = "MB226"
+    # full_path = base_path + topid
+    # single_query(full_path, topid)
+    for topid in selected_query_set:
+        print topid
+        full_path = base_path + topid
+        if os.path.isfile(full_path):
+            single_query(full_path, topid)

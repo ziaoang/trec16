@@ -7,6 +7,7 @@
 
 import time
 import datetime
+import calendar
 from os import listdir
 from os.path import isfile, join
 
@@ -19,7 +20,7 @@ def single_file(file_path, file):
             info = line.strip().split("\t")
             try:
                 delivery_time = datetime.datetime.strptime(info[0], "%a %b %d %H:%M:%S +0000 %Y")
-                localtime = int(time.mktime(delivery_time.timetuple()))
+                localtime = calendar.timegm(delivery_time.timetuple())
                 string = topid + "\t" + info[1] + "\t" + str(localtime) + "\t" + "runA" + "\n"
                 result.write(string)
             except Exception, e:
@@ -34,8 +35,9 @@ if __name__ == "__main__":
     file_names = [f for f in listdir(base_path) if isfile(join(base_path, f))]
     file_names.sort()
     for file in file_names:
-        print file
-        full_path = base_path + file
-        single_file(full_path, file)
+        if file.strip().split("_")[0] == "MB236":
+            print file
+            full_path = base_path + file
+            single_file(full_path, file)
         
         
