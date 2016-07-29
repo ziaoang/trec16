@@ -9,16 +9,19 @@ import sys
 import os
 import datetime
 from os import listdir
-from os.path import isfile, join
+from os.path import isfile, join, isdir
 from package.candidate import Candidate
 from package.advancedTweet import AdvancedTweet
 from package.utils import load_vector_dict
 
 vector_dict = load_vector_dict()
 
-def single_file(file_path, file, write_dir):
+def single_file(file_path, dir, file, write_dir):
     fin = open(file_path, "r")
-    write_path = write_dir + file
+    if not isdir(write_dir + dir):
+        cmd = "mkdir " + write_dir + dir
+        os.system(cmd)
+    write_path = write_dir + dir + "/" + file
     write_file = open(write_path, "w")
     res_list = []
     
@@ -53,9 +56,12 @@ if __name__ == "__main__":
         print "sys.argv[2]: Output result dir"
         exit()
           
-    file_names = [f for f in listdir(sys.argv[1]) if isfile(join(sys.argv[1], f))]    
-    for file in file_names:
-        full_path = sys.argv[1] + file
-        print full_path
-        single_file(full_path, file, sys.argv[2])
+    dir_names = [dir for dir in listdir(sys.argv[1]) if isdir(join(sys.argv[1], dir))]    
+    for dir in dir_names:
+        cur_path = sys.argv[1] + dir + "/"
+        file_names = [f for f in listdir(cur_path) if isfile(join(cur_path, f))]  
+        for file in file_names:
+            full_path = cur_path + file
+            print full_path
+            single_file(full_path, dir, file, sys.argv[2])
     

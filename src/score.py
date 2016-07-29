@@ -8,9 +8,10 @@
 import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
+import os
 import time
 import logging
-from datetime import datetime
+import datetime
 from package.advancedTweet import AdvancedTweet 
 from package.query import Query
 from package.relation import similarity_q_t
@@ -35,16 +36,16 @@ def overlap(query_stem_list, tweet_stem_list):
     return False
     
 def calculate_score(input_file):
-    start = time.clock()
     with open(input_file,'r') as fin:
         for i, line in enumerate(fin):
             if i % 1000 == 0: print i
             timestamp, id, plain_text, stem_list_str = line.strip().split("\t")
             tweet = AdvancedTweet(timestamp, id, plain_text, stem_list_str, vector_dict)
+            cur_day = datetime.datetime.strptime(timestamp, "%a %b %d %H:%M:%S +0000 %Y").day
             for query in query_list:
                 if query.topid not in selected_query_set: continue
                 if not overlap(query.stem_list, tweet.stem_list): continue
-                write_file = "../data/data15/score2/" + query.topid
+                write_file = "../data/data15/score3/" + str(cur_day) + "/" + query.topid
                 result = open(write_file, "a")
                 jm = similarity_q_t(query, tweet, corpus_dict, "jm")
                 dirichlet = similarity_q_t(query, tweet, corpus_dict, "dirichlet")
@@ -58,8 +59,6 @@ def calculate_score(input_file):
                           + str(jm) + "\t" + str(dirichlet) + "\n"
                 result.write(string)
                 # result.close()                          
-    end  = time.clock()
-    print "calculate score: %f s" % (end - start)
 
 
 if __name__ == "__main__":
