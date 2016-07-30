@@ -5,16 +5,19 @@
 # CREATED:  2016-07-28 18:50:21
 # MODIFIED: 2016-07-28 18:50:22
 
+import sys
 import time
 import datetime
 import calendar
+import os
 from os import listdir
-from os.path import isfile, join
+from os.path import isfile, isdir, join
+from package.utils import selected_queryid_set
 
-def single_file(file_path, file):
-    topid = file.strip().split("_")[0]
-    write_file = "../data/data15/submit/" + file
-    result = open(write_file, "w") 
+
+def single_file(file_path, topkn, write_dir):
+    write_file = write_dir + topkn
+    result = open(write_file, "a") 
     with open(file_path, "r") as fin:
         for i, line in enumerate(fin):
             info = line.strip().split("\t")
@@ -31,13 +34,25 @@ def single_file(file_path, file):
             
 
 if __name__ == "__main__":
-    base_path = "../data/data15/res/N/"
-    file_names = [f for f in listdir(base_path) if isfile(join(base_path, f))]
-    file_names.sort()
-    for file in file_names:
-        if file.strip().split("_")[0] == "MB236":
-            print file
-            full_path = base_path + file
-            single_file(full_path, file)
+    if len(sys.argv) < 3:
+        print "sys.argv[1]: Input two stage candidate dir"
+        print "sys.argv[2]: Output submit dir!"
+        exit()
+    
+    topid_set = selected_queryid_set() 
+    topid_list = sorted(topid_set)
+
+    topkn_names = [topKN for topKN in listdir(sys.argv[1]) if isdir(join(sys.argv[1], topKN))]
+    topkn_names.sort()
+    for topkn in topkn_names:
+        # nol = float(topkn.strip.split("N")[1])
+        cur_path = sys.argv[1] + topkn + "/"
+        for topid in topid_list:
+            day_names = [day for day in listdir(cur_path) if isdir(join(cur_path, day))]
+            day_names.sort()
+            for day in day_names:
+                full_path = cur_path + day + "/" + topid
+                print full_path
+                single_file(full_path, topkn, sys.argv[2])
         
         

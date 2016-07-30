@@ -14,7 +14,8 @@ from package.relation import similarity_t_t
 
 # Version 2.0
 def single_file(score_file, day, topid, threshold_dir, write_dir):
-    threshold = {} # Key: topk, Value: current topid's threshold
+    # Get threshold dict, Key: topk, Value: current topid's threshold
+    threshold = {} 
     topk_names = [k for k in listdir(threshold_dir) if isdir(join(threshold_dir, k))] 
     topk_names.sort()
     for topk in topk_names:
@@ -24,7 +25,7 @@ def single_file(score_file, day, topid, threshold_dir, write_dir):
                 if not line.startswith(topid): continue
                 threshold[topk] = line.strip().split("\t")[1]
                 break
-    
+
     for topk in topk_names:
         if not isdir(write_dir + topk):
             cmd = "mkdir " + write_dir + topk
@@ -38,7 +39,7 @@ def single_file(score_file, day, topid, threshold_dir, write_dir):
         with open(score_file, "r") as fin:
             for line in fin:
                 timestamp, id, plain_text, stem_text, jm, dirichlet = line.strip().split("\t")
-                if float(dirichlet) > threshold[topk]:
+                if float(dirichlet) > float(threshold[topk]):
                     write_file.write(line)
             
 

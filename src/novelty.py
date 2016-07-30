@@ -5,9 +5,11 @@
 # CREATED:  2016-07-28 16:46:13
 # MODIFIED: 2016-07-28 16:46:14
 
+import os
+import sys
 import datetime
 from os import listdir
-from os.path import isfile, join
+from os.path import isfile, isdir, join
 from package.advancedTweet import AdvancedTweet
 from package.relation import similarity_t_t
 from package.utils import load_vector_dict
@@ -16,55 +18,67 @@ from scenarioA import novel_strategy
 vector_dict = load_vector_dict()
 
 
-def single_file(file_path, file, method, nol):
+def single_file(file_path, topk, day, topid, nol, write_dir):
+    topk_path = write_dir + topk + "_N" + str(nol)
+    if not isdir(topk_path):
+        cmd = "mkdir " + topk_path
+        os.system(cmd)
+    if not isdir(topk_path + "/" + day):
+        cmd = "mkdir " + topk_path + "/" + day
+        os.system(cmd)
+        
+    write_path = topk_path + "/" + day + "/" + topid
+    write_file = open(write_path, "w")
+
     queue = []
-    day_dict = {}
-    write_file = "../data/data15/res/N/" + file + "_N" + str(nol)
-    result = open(write_file, "w")
     with open(file_path, "r") as fin:
         for line in fin:
             timestamp, id, plain_text, stem_text, jm, dirichlet = line.strip().split("\t")
             tweet = AdvancedTweet(timestamp, id, plain_text, stem_text, vector_dict)
             
-            cur_day = datetime.datetime.strptime(timestamp, "%a %b %d %H:%M:%S +0000 %Y").day
-            
             # Add current tweet to queue
-            if len(queue) == 0 or cur_day not in day_dict: 
+            if len(queue) == 0: 
                 queue.append(tweet)
-                day_dict[cur_day] = 1
-                string =  timestamp + "\t" + id      + "\t" + plain_text     + "\t" + \
-                          stem_text + "\t" + str(jm) + "\t" + str(dirichlet) + "\n"
-                result.write(string)
+                string = timestamp + "\t" + id + "\t" + plain_text + "\t" + \
+                         stem_text + "\t" + jm + "\t" + dirichlet  + "\n"
+                write_file.write(string)
                 continue
                 
-            # Continue when cur_day queue size more than 10
-            if day_dict[cur_day] == 10: continue 
+            # Break when queue size more than 10
+            if len(queue) == 10: break 
             
             # Whether current tweet can add to queue
-            score = novel_strategy(1, tweet, queue, method)
+            score = novel_strategy(1, tweet, queue, "dirichlet")
             if score < nol:
                 queue.append(tweet)
-                day_dict[cur_day] += 1
-                string =  timestamp + "\t" + id      + "\t" + plain_text     + "\t" + \
-                          stem_text + "\t" + str(jm) + "\t" + str(dirichlet) + "\n"
-                result.write(string)
+                string = timestamp + "\t" + id + "\t" + plain_text + "\t" + \
+                         stem_text + "\t" + jm + "\t" + dirichlet  + "\n"
+                write_file.write(string)
     
             
 
 if __name__ == "__main__":
-    base_path = "../data/data15/res/R/"
-    file_names = [f for f in listdir(base_path) if isfile(join(base_path, f))]
-    file_names.sort()
-    for file in file_names:
-        # Use for test
-        # if file.strip().split("_")[0] != "MB236": continue
-        
-        if "J" in file:
-            method = "jm"
-        else: method = "dirichlet"
-        full_path = base_path + file
-        for nol in [0.75, 0.8, 0.85, 0.9]:
-            print "file: %s, nol: %f", (file, nol)
-            single_file(full_path, file, method, nol)
-            
+    if len(sys.argv) < 3:
+        print "sys.argv[1]: Input one stage candidate dir"
+        print "sys.argv[2]: Output two stage candidate dir!"
+        exit()
+              
+    topk_names = [topk for topk in listdir(sys.argv[1]) if isdir(join(sys.argv[1], topk))] 
+    topk_names.sort()
+    for topk in topk_names:
+        cur_path = sys.argv[1] + topk + "/"
+        day_names = [day for day in listdir(cur_path) if isdir(join(cur_path, day))]
+        day_names.sort()
+        for day in day_names:
+            second_path = cur_path + day + "/"           
+            topid_names = [topid for topid in listdir(second_path) if isfile(join(second_path, topid))]
+            topid_names.sort()
+            for topid in topid_names:
+                full_path = second_path + topid
+                print full_path
+                for nol in [0.55, 0.6, 0.65, 0.7, 0.75]:
+                    single_file(full_path, topk, day, topid, nol, sys.argv[2])
+
+
+
             
