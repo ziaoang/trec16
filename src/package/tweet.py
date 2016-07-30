@@ -12,6 +12,8 @@ class Tweet(TrecJson):
             self.id_str       = t['id_str']
             self.text         = t['text']
             
+            self.id           = self.id_str
+            
             if self.lang == 'en':
                 self.plain_text   = self.extract_plain_text(self.text)
                 self.word_list    = self.extract_word_list(self.plain_text)

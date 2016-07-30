@@ -10,10 +10,8 @@ def load_stopword_set():
     return stopword_set
 
 def load_vector_dict():
-    # Use for test
-    return {}
     print("load word2vec ...")
-    absolute_path = "/index15/w2v/w2v.txt"
+    absolute_path = "/index15/w2v/w2v_raw.txt"
     vector_dict = {}
     line_no = 0
     for line in open(absolute_path):
