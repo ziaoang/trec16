@@ -1,5 +1,10 @@
 import math
 
+def normalize(score):
+    max = 0.0
+    min = -20.0
+    return float(score - min) / (max - min)
+
 def jaccard(word_list_1, word_list_2):
     t1 = set(word_list_1)
     t2 = set(word_list_2)
@@ -68,5 +73,41 @@ def similarity_t_t(tweet_1, tweet_2, corpus_dict):
     s2 = kl_dirichlet_normalize(tweet_2.stem_distri, tweet_1.stem_distri, corpus_dict, 100, len(tweet_1.stem_list))
     return (s1 + s2) / 2.0
 
+def similarity_q_t2(query, tweet, corpus_dict, method):
+    distribution_q = query.stem_distri
+    distribution_t = tweet.stem_distri
+    distribution_c = corpus_dict
+    if method == "jm":
+        lamda = 0.2
+        score = kl_jm(distribution_q, distribution_t, distribution_c, lamda)
+        return normalize(score)
+    if method == "dirichlet":
+        mu = 100
+        t_len = len(tweet.stem_list)
+        score = kl_dirichlet(distribution_q, distribution_t, distribution_c, mu, t_len)
+        return normalize(score)
+    print "Wrong method in similarity_q_t(), expected 'jm' or 'dirichlet'!"
+    exit()
+    
+
+def similarity_t_t2(tweet_1, tweet_2, corpus_dict, method):
+    distribution_q = tweet_1.stem_distri
+    distribution_t = tweet_2.stem_distri
+    distribution_c = corpus_dict
+    t1 = len(tweet_1.stem_list)
+    t2 = len(tweet_2.stem_list)
+    if method == "jm":
+        lamda = 0.2
+        s1 = kl_jm(distribution_q, distribution_t, distribution_c, lamda)
+        s2 = kl_jm(distribution_t, distribution_q, distribution_c, lamda)
+        return normalize(float(s1 + s2) / 2)
+    if method == "dirichlet":
+        mu = 100
+        s1 = kl_dirichlet(distribution_q, distribution_t, distribution_c, mu, t2)
+        s2 = kl_dirichlet(distribution_t, distribution_q, distribution_c, mu, t1)
+        return normalize(float(s1 + s2) / 2)
+    print "Wrong method in similarity_t_t(), expected 'jm' or 'dirichlet'!"
+    exit()
+    
 
 
