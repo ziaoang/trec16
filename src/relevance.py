@@ -13,7 +13,7 @@ from package.utils import selected_queryid_set
 from package.relation import similarity_t_t
 
 # Version 2.0
-def single_file(score_file, day, topid, threshold_dir, write_dir):
+def single_file(score_file, day, topid, threshold_dir, nol, write_dir):
     # Get threshold dict, Key: topk, Value: current topid's threshold
     threshold = {} 
     topk_names = [k for k in listdir(threshold_dir) if isdir(join(threshold_dir, k))] 
@@ -27,13 +27,19 @@ def single_file(score_file, day, topid, threshold_dir, write_dir):
                 break
 
     for topk in topk_names:
-        if not isdir(write_dir + topk):
-            cmd = "mkdir " + write_dir + topk
+        path = write_dir + nol + "/"
+        if not isdir(path):
+            cmd = "mkdir " + path
             os.system(cmd)
-        if not isdir(write_dir + topk + "/" + day):
-            cmd = "mkdir " + write_dir + topk + "/" + day
+        path += topk + "/"
+        if not isdir(path):
+            cmd = "mkdir " + path
             os.system(cmd)
-        write_path = write_dir + topk + "/" + day + "/" + topid
+        path += day + "/"
+        if not isdir(path):
+            cmd = "mkdir " + path
+            os.system(cmd)
+        write_path = path + topid
         write_file = open(write_path, "w")
     
         with open(score_file, "r") as fin:
@@ -61,7 +67,12 @@ if __name__ == "__main__":
         for topid in topid_names:
             full_path = cur_path + topid
             print full_path
-            single_file(full_path, day, topid, sys.argv[2], sys.argv[3])
+            nol_names = [nol for nol in listdir(sys.argv[2]) if isdir(join(sys.argv[2], nol))]
+            nol_names.sort()
+            for nol in nol_names:
+                threshold_dir = sys.argv[2] + nol + "/"
+                print threshold_dir
+                single_file(full_path, day, topid, threshold_dir, nol, sys.argv[3])
             
             
 # Version 1.0   

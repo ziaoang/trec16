@@ -10,52 +10,33 @@ import time
 import os
 from datetime import datetime
 from package.query import Query
-from package.tweet import Tweet
+from package.advancedTweet import AdvancedTweet
 from package.relation import similarity_q_t, similarity_t_t
-from package.utils import load_stopword_set, load_vector_dict, load_corpus_dict
+from package.utils import *
 import logging
 
-logging.basicConfig(filename='scenarioA2.log', level=logging.INFO)
+logging.basicConfig(filename='scenarioA.log', level=logging.INFO)
 
 stopword_set = load_stopword_set()
 vector_dict = load_vector_dict()
 corpus_dict = load_corpus_dict()
+query_list = load_query_list()
 
-def get_topics(file_path):
-    query_list = []
-    try:
-        content = open(file_path).read()
-        query_json_list = json.loads(content)
-        for query_json in query_json_list:
-            query_json_string = json.dumps(query_json)
-            query = Query(query_json_string, stopword_set, vector_dict)
-            if not query.is_valid:  
-                print "Error in get_topics(), invalid query!"
-                exit()
-            query_list.append(query)
-    except Exception, e:
-        print "Error in get_topics(), " + str(e)
-    return query_list
-    
 
 def get_threshold(file_path):
     result = {}
-    try:
-        with open(file_path, "r") as fin:
-            for i, line in enumerate(fin):
-                content = line.strip().split("\t")
-                if len(content) >= 2:
-                    query_id = content[0]
-                    if query_id in result:
-                        print "Duplicated query_id in threshold file!"
-                        exit()
-                    result[query_id] = content[1:]
-                else:
-                    print "Threshold file format wrong!"
+    with open(file_path, "r") as fin:
+        for i, line in enumerate(fin):
+            content = line.strip().split("\t")
+            if len(content) >= 2:
+                query_id = content[0]
+                if query_id in result:
+                    print "Duplicated query_id in threshold file!"
                     exit()
-    except Exception, e:
-        print 'Error in get_threshold(): '+ str(e)
-        exit()
+                result[query_id] = content[1:]
+            else:
+                print "Threshold file format wrong!"
+                exit()
     return result
 
 
@@ -78,7 +59,8 @@ def get_recommend_queue(file_path):
         exit()
     return queue    
         
-
+# Remain to fix string format
+# Remain to fix write file path
 def update_recommend_queue(file_path, tweet):
     try:
         result = open(file_path, "a")
@@ -108,7 +90,7 @@ Calculate the novelty score between current tweet and tweets in recommend queue
 :param cur_queue: tweets in recommend queue 
 :return: novelty score according to different strategy
 """
-def novel_strategy(strategy, cur_tweet, cur_queue):
+def novel_strategy(strategy, cur_tweet, cur_queue, method):
     if strategy not in [1, 2, 3]:
         print "Wrong strategy label!"
         exit()
@@ -117,7 +99,7 @@ def novel_strategy(strategy, cur_tweet, cur_queue):
     max_score = 0.0
     sum_score = 0.0
     for tweet in cur_queue:
-        score = similarity_t_t(cur_tweet, tweet, corpus_dict)
+        score = similarity_t_t(cur_tweet, tweet, corpus_dict, method)
         score_list.append(score)
         if score > max_score: max_score = score
         if score < min_score: min_score = score
@@ -134,7 +116,6 @@ def pipeline(tweet_json):
         print "pipeline begin"
         tweet = Tweet(tweet_json, stopword_set, vector_dict)
         if tweet.is_valid:
-            query_list = get_topics("../data/data15/topic.txt")
             threshold_dict = get_threshold("../data/data16/threshold.txt")
             for query in query_list:
                 if query.topid not in threshold_dict:
