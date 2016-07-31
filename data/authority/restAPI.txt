@@ -1,7 +1,7 @@
 #Info
 groupId: PKUICST.vwNV 
 
-clientId(selecting three of them is enough):
+clientId(selecting three of them is enough): 
     kcm9Tu9dUIjP
     TyeaK74Lafp2
     5YUZahsxivLv
