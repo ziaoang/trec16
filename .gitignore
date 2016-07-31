@@ -2,4 +2,5 @@
 *.pyc
 *.log
 *.dat
+tool/twitter-tools/twitter-tools-core/src/main/python/twittertools/stream/status.log.*
 

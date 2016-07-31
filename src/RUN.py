@@ -9,6 +9,16 @@ from package.advancedTweet import AdvancedTweet
 from package.utils import load_stopword_set, load_corpus_dict, load_corpus_dict, load_query_list
 from package.relation import similarity_q_t, similarity_t_t
 
+# Real
+#task_month     = 8
+#task_start_day = 2
+#task_end_day   = 11
+
+# Test
+task_month     = 7
+task_start_day = 27
+task_end_day   = 31
+
 # Global Variates
 stopword_set = load_stopword_set()
 print 'stopword_set size: %d' % len(stopword_set)
@@ -33,7 +43,7 @@ def load_submit(file_path):
     submit = {}
     for query in query_list:
         submit[query.id] = {}
-        for day in range(2, 11 + 1):
+        for day in range(task_start_day, task_end_day + 1):
             submit[query.id][day] = []
     for line in open(file_path):
         t = line.strip().split('\t')
@@ -52,7 +62,7 @@ def save_submit(file_path, qid, day, tweet):
     df.close()
 
 def post_submit(qid, tid, client_id):
-    os.system("Post: curl -X POST -H 'Content-Type: application/json'  54.164.151.19:80/tweet/%s/%s/%s" % (qid, tid, client_id))
+    os.system("curl -X POST -H 'Content-Type: application/json' hostname.com/tweet/%s/%s/%s" % (qid, tid, client_id))
 
 #=================================================================# RUN A 1
 run_a_1_client_id = 'kcm9Tu9dUIjP'
@@ -67,7 +77,7 @@ def run_a_1(query, tweet):
     rel_score = similarity_q_t(query, tweet, corpus_dict)
     if rel_score > run_a_1_rel_thr:
         max_red_score = 0
-        for day in range(2, dt.day + 1):
+        for day in range(task_start_day, dt.day + 1):
             for other_tweet in run_a_1_submit[query.id][day]:
                 red_score = similarity_q_t(tweet, other_tweet, corpus_dict)
                 max_red_score = max(max_red_score, red_score)
@@ -109,11 +119,11 @@ def is_quick_filtered(tweet):
 
 def row_handle(created_at, id_str, word_list_str, stem_list_str):
     dt = datetime.datetime.strptime(created_at, "%a %b %d %H:%M:%S +0000 %Y")
-    if dt.month == 8 and dt.day >= 2 and dt.day <= 11:
+    if dt.month == task_month and dt.day >= task_start_day and dt.day <= task_end_day:
         print 'target tweet'
-        tweet = AdvancedTweet(created_at, id_str, word_list_str, stem_list_str, vector_dict)
-        if not is_quick_filtered(tweet):
-            tweet_handle(tweet)
+        #tweet = AdvancedTweet(created_at, id_str, word_list_str, stem_list_str, vector_dict)
+        #if not is_quick_filtered(tweet):
+        #   tweet_handle(tweet)
     else:
         print 'not target tweet'
 
@@ -153,13 +163,12 @@ def is_system_break():
 if __name__ == "__main__":
     while True:
         if is_system_break():
-            print 'system break'
+            print 'system break !'
             exit()
         
-        print 'main'
-        #main()
+        main()
         
-        print 'sleep 10 seconds'
+        print 'sleep 10 seconds ...'
         time.sleep(10)
 
 
