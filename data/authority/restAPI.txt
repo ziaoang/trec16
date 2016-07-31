@@ -1,11 +1,10 @@
 #Info
 groupId: PKUICST.vwNV 
 
-clientId(selecting three of them is enough): 
-    mnHk0sTeKUcU
-    hmu8Yc5WpW7Z
-    taZPUG0Mz1QG
-    diBbxmttXAVe
+clientId(selecting three of them is enough):
+    kcm9Tu9dUIjP
+    TyeaK74Lafp2
+    5YUZahsxivLv
 
 #Usage
 Get ClientID: curl -H 'Content-Type: application/json' --data '{"groupid":"PKUICST.vwNV","alias":"run1"}'  54.164.151.19:80/register/system

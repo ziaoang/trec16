@@ -1,4 +1,7 @@
 import os
+import sys
+import json
+from query import Query
 
 def load_stopword_set():
     print("load stopword ...")
@@ -41,5 +44,23 @@ def load_corpus_dict():
             corpus_dict[t[0]] = float(t[1]) / total_count
     print("load corpus over")
     return corpus_dict
+
+def load_query_list(stopword_set, vector_dict):
+    print 'load query list ...'
+    absolute_path = os.path.join(os.path.dirname(__file__) + "/../../data/data16/topic.txt")
+    query_list = []
+    content = open(absolute_path).read()
+    query_json_list = json.loads(content)
+    for query_json in query_json_list:
+        query_json_str = json.dumps(query_json)
+        query = Query(query_json_str, stopword_set, vector_dict)
+        if query.is_valid:
+            query_list.append(query)
+        else:
+            print 'ERROR: query is not valid'
+            exit()
+    print 'load query over'
+    return query_list
+
 
 

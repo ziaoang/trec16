@@ -61,13 +61,12 @@ def cos_normalize(vector_1, vector_2):
     return ( cos_score + 1.0 ) / 2
 
 def similarity_q_t(query, tweet, corpus_dict):
-    s = kl_dirichlet(query.stem_distri, tweet.stem_distri, corpus_dict, 100, len(tweet.stem_list))
-    return kl_normalize(s)
+    return kl_dirichlet_normalize(query.stem_distri, tweet.stem_distri, corpus_dict, 100, len(tweet.stem_list))
 
 def similarity_t_t(tweet_1, tweet_2, corpus_dict):
-    s1 = kl_dirichlet(tweet_1.stem_distri, tweet_2.stem_distri, corpus_dict, 100, len(tweet_2.stem_list))
-    s2 = kl_dirichlet(tweet_2.stem_distri, tweet_1.stem_distri, corpus_dict, 100, len(tweet_1.stem_list))
-    return (kl_normalize(s1) + kl_normalize(s2)) / 2.0
+    s1 = kl_dirichlet_normalize(tweet_1.stem_distri, tweet_2.stem_distri, corpus_dict, 100, len(tweet_2.stem_list))
+    s2 = kl_dirichlet_normalize(tweet_2.stem_distri, tweet_1.stem_distri, corpus_dict, 100, len(tweet_1.stem_list))
+    return (s1 + s2) / 2.0
 
 
 
