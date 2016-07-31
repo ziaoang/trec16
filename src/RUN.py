@@ -23,13 +23,13 @@ task_end_day   = 31
 stopword_set = load_stopword_set()
 print 'stopword_set size: %d' % len(stopword_set)
 
-vector_dict  = {}
+vector_dict = {}
 print 'vector_dict size: %d'  % len(vector_dict)
 
-corpus_dict = corpus_dict()
+corpus_dict = load_corpus_dict()
 print 'corpus_dict size: %d'  % len(corpus_dict)
 
-query_list   = load_query_list(stopword_set, vector_dict)
+query_list = load_query_list(stopword_set, vector_dict)
 print 'query_list size: %d'   % len(query_list)
 
 all_stem_set = set()
@@ -62,7 +62,9 @@ def save_submit(file_path, qid, day, tweet):
     df.close()
 
 def post_submit(qid, tid, client_id):
-    os.system("curl -X POST -H 'Content-Type: application/json' hostname.com/tweet/%s/%s/%s" % (qid, tid, client_id))
+    order = "curl -X POST -H 'Content-Type: application/json' 54.164.151.19:80/tweet/%s/%s/%s" % (qid, tid, client_id)
+    print order
+    os.system(order)
 
 #=================================================================# RUN A 1
 run_a_1_client_id = 'kcm9Tu9dUIjP'
@@ -85,7 +87,7 @@ def run_a_1(query, tweet):
             run_a_1_submit[query.id][dt.day].append(tweet)
             save_submit(run_a_1_submit_file_path, query.id, dt.day, tweet)
             post_submit(query.id, tweet.id, run_a_1_client_id)
-    
+
 #=================================================================# RUN A 2
 run_a_2_client_id = 'TyeaK74Lafp2'
 
@@ -120,12 +122,9 @@ def is_quick_filtered(tweet):
 def row_handle(created_at, id_str, word_list_str, stem_list_str):
     dt = datetime.datetime.strptime(created_at, "%a %b %d %H:%M:%S +0000 %Y")
     if dt.month == task_month and dt.day >= task_start_day and dt.day <= task_end_day:
-        print 'target tweet'
-        #tweet = AdvancedTweet(created_at, id_str, word_list_str, stem_list_str, vector_dict)
-        #if not is_quick_filtered(tweet):
-        #   tweet_handle(tweet)
-    else:
-        print 'not target tweet'
+        tweet = AdvancedTweet(created_at, id_str, word_list_str, stem_list_str, vector_dict)
+        if not is_quick_filtered(tweet):
+           tweet_handle(tweet)
 
 def main():
     try:
@@ -136,7 +135,7 @@ def main():
                                port   = 3306)
         cur=conn.cursor()
 
-        cur.execute('SELECT * FROM preprocess WHERE is_process = 0 limit 10')
+        cur.execute('SELECT * FROM preprocess WHERE is_process = 0 limit 1000')
         rows = cur.fetchall()
         for row in rows:
             id            = row[0]
@@ -165,11 +164,11 @@ if __name__ == "__main__":
         if is_system_break():
             print 'system break !'
             exit()
-        
+
         main()
         
-        print 'sleep 10 seconds ...'
-        time.sleep(10)
+        #print 'sleep 10 seconds ...'
+        #time.sleep(10)
 
 
 
