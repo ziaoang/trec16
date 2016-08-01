@@ -13,7 +13,6 @@ from package.relation import dir_score, sym_dir_score
 ######################################################### Config
 client_id              = 'kcm9Tu9dUIjP'
 submit_log_file_path   = 'RUN/SUBMIT.log'
-submit_error_file_path = 'RUN/SUBMIT.err'
 
 rel_thr = 0.67
 red_thr = 0.67
@@ -84,16 +83,22 @@ def save_submit_log(qid, day, tweet):
     df.close()
 
 def post_submit(qid, tid):
-    order = "curl -X POST -H 'Content-Type: application/json' 54.164.151.19:80/tweet/%s/%s/%s" % (qid, tid, client_id)
-    print order
-    os.system(order)
+    try:
+        conn=MySQLdb.connect(host='localhost',user='root',passwd='webkdd',db='trec16',port=3306)
+        cur=conn.cursor()
+        cur.execute('INSERT INTO submit (qid, tid, client_id) VALUES (%s, %s, %s)', [qid, tid, client_id])
+        conn.commit()
+        cur.close()
+        conn.close()
+    except Exception, e:
+        print e
 
 ######################################################### Define Score Function
 def sim_q_t(query, tweet):
     return dir_score(query, tweet, corpus_dict)
     
 def sim_t_t(tweet_1, tweet_2):
-    return sym_dir_score(query, tweet, corpus_dict)
+    return sym_dir_score(tweet_1, tweet_2, corpus_dict)
 
 #########################################################
 def run(query, tweet):
@@ -108,7 +113,7 @@ def run(query, tweet):
                 max_red_score = max(max_red_score, red_score)
         if max_red_score < red_thr:
             submit_log[query.id][dt.day].append(tweet)
-            save_submit(query.id, dt.day, tweet)
+            save_submit_log(query.id, dt.day, tweet)
             post_submit(query.id, tweet.id)
 #########################################################
 
