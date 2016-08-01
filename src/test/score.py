@@ -6,7 +6,7 @@ sys.path.append("../")
 from package.query import Query
 from package.advancedTweet import AdvancedTweet
 from package.utils import load_stopword_set, load_vector_dict, load_corpus_dict
-from package.relation import kl_jm_normalize, kl_dirichlet_normalize, cos_normalize
+from package.relation import jm_score, dir_score, cos_score
 
 stopword_set = load_stopword_set()
 vector_dict  = load_vector_dict()
@@ -45,9 +45,9 @@ df = open("score.dat", "w")
 for query in query_list:
     for tweet in tweet_list:
         if overlap(query.stem_distri, tweet.stem_list):
-            score1 = kl_jm_normalize(query.stem_distri, tweet.stem_distri, corpus_dict, 0.5)
-            score2 = kl_dirichlet_normalize(query.stem_distri, tweet.stem_distri, corpus_dict, 100, len(tweet.stem_list))
-            score3 = cos_normalize(query.vector, tweet.vector)
+            score1 = jm_score(query, tweet, corpus_dict)
+            score2 = dir_score(query, tweet, corpus_dict)
+            score3 = cos_score(query, tweet)
             df.write("%s\t%s\t%.4f\t%.4f\t%.4f\n"%(query.id, tweet.id, score1, score2, score3))
 df.close()
 

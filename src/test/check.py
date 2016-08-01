@@ -21,10 +21,10 @@ for line in open("score.dat"):
     t = line.strip().split('\t')
     qid, tid = t[0], t[1]
     score1, score2, score3 = float(t[2]), float(t[3]), float(t[4])
-    if tid in a[qid]:
-        score1_list.append(score1)
-        score2_list.append(score2)
-        score3_list.append(score3)
+    #if tid in a[qid]:
+    score1_list.append(score1)
+    score2_list.append(score2)
+    score3_list.append(score3)
 
 print len(score1_list)
        

@@ -44,17 +44,24 @@ def kl_dirichlet(distribution_q, distribution_t, distribution_c, mu, t_len):
 def kl_normalize(score):
     max_v = 0.0
     min_v = -20.0
-    score = min(score, max_v)
-    score = max(score, min_v)
+    if score > max_v: score = max_v
+    if score < min_v: score = min_v
     return (score - min_v) / (max_v - min_v)
 
-def kl_jm_normalize(distribution_q, distribution_t, distribution_c, lamda):
-    return kl_normalize(kl_jm(distribution_q, distribution_t, distribution_c, lamda))
+def jm_score(query, tweet, corpus_dict):
+    lamda = 0.2
+    return kl_normalize(kl_jm(query.stem_distri, tweet.stem_distri, corpus_dict, lamda))
 
-def kl_dirichlet_normalize(distribution_q, distribution_t, distribution_c, mu, t_len):
-    return kl_normalize(kl_dirichlet(distribution_q, distribution_t, distribution_c, mu, t_len))
+def dir_score(query, tweet, corpus_dict):
+    mu = 100
+    return kl_normalize(kl_dirichlet(query.stem_distri, tweet.stem_distri, corpus_dict, mu, len(tweet.stem_list)))
 
-def cos_normalize(vector_1, vector_2):
+def sym_dir_score(tweet_1, tweet_2, corpus_dict):
+    score_1 = dir_score(tweet_1, tweet_2, corpus_dict)
+    score_2 = dir_score(tweet_2, tweet_1, corpus_dict)
+    return (score_1 + score_2) / 2.0
+
+def cos(vector_1, vector_2):
     a, b, c = 0.0, 0.0, 0.0
     for i in range(100):
         a += vector_1[i] * vector_2[i]
@@ -65,13 +72,14 @@ def cos_normalize(vector_1, vector_2):
     cos_score = a / math.sqrt(b * c)
     return ( cos_score + 1.0 ) / 2
 
+def cos_score(query, tweet):
+    return cos(query.vector, tweet.vector)
+
 def similarity_q_t(query, tweet, corpus_dict):
-    return kl_dirichlet_normalize(query.stem_distri, tweet.stem_distri, corpus_dict, 100, len(tweet.stem_list))
+    return dir_score(query, tweet, corpus_dict)
 
 def similarity_t_t(tweet_1, tweet_2, corpus_dict):
-    s1 = kl_dirichlet_normalize(tweet_1.stem_distri, tweet_2.stem_distri, corpus_dict, 100, len(tweet_2.stem_list))
-    s2 = kl_dirichlet_normalize(tweet_2.stem_distri, tweet_1.stem_distri, corpus_dict, 100, len(tweet_1.stem_list))
-    return (s1 + s2) / 2.0
+    return sym_dir_score(tweet_1, tweet_2, corpus_dict)
 
 def similarity_q_t2(query, tweet, corpus_dict, method):
     distribution_q = query.stem_distri
