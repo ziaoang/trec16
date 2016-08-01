@@ -14,8 +14,8 @@ from package.relation import dir_score, sym_dir_score
 client_id              = 'kcm9Tu9dUIjP'
 submit_log_file_path   = 'RUN/SUBMIT.log'
 
-rel_thr = 0.67
-red_thr = 0.67
+rel_thr = 0.75
+red_thr = 0.68
 
 task_month     = 8
 task_start_day = 2
@@ -153,7 +153,7 @@ def main():
             word_list_str = row[3]
             stem_list_str = row[4]
             row_handle(created_at, id_str, word_list_str, stem_list_str)
-            #cur.execute('UPDATE raw SET is_process = 1 WHERE id = %d' % id)
+            cur.execute('UPDATE preprocess SET is_process = 1 WHERE id = %d' % id)
         conn.commit()
             
         cur.close()
