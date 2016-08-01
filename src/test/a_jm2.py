@@ -15,10 +15,10 @@ score_dict = {}
 for line in open("score.dat"):
     t = line.strip().split('\t')
     qid, tid = t[0], t[1]
-    score1, score2 = float(t[2]), float(t[3])
+    now_jm2_score, now_jm5_score, now_dir_score = float(t[2]), float(t[3]), float(t[4])
     if qid not in score_dict:
         score_dict[qid] = {}
-    score_dict[qid][tid] = score1
+    score_dict[qid][tid] = now_jm2_score
 
 print "load query list ..."
 query_list = []
