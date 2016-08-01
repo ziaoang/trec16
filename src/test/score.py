@@ -5,8 +5,8 @@ import datetime
 sys.path.append("../")
 from package.query import Query
 from package.advancedTweet import AdvancedTweet
-from package.utils import load_stopword_set, load_vector_dict, load_corpus_dict
-from package.relation import jm_score, dir_score, cos_score
+from package.utils import load_stopword_set, load_corpus_dict
+from package.relation import jm_score, dir_score
 
 stopword_set = load_stopword_set()
 vector_dict  = load_vector_dict()
