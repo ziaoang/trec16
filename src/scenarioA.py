@@ -11,7 +11,7 @@ import os
 from datetime import datetime
 from package.query import Query
 from package.advancedTweet import AdvancedTweet
-from package.relation import similarity_q_t, similarity_t_t
+from package.relation import similarity_q_t2, similarity_t_t2
 from package.utils import *
 import logging
 
@@ -99,7 +99,7 @@ def novel_strategy(strategy, cur_tweet, cur_queue, method):
     max_score = 0.0
     sum_score = 0.0
     for tweet in cur_queue:
-        score = similarity_t_t(cur_tweet, tweet, corpus_dict, method)
+        score = similarity_t_t2(cur_tweet, tweet, corpus_dict, method)
         score_list.append(score)
         if score > max_score: max_score = score
         if score < min_score: min_score = score
@@ -121,7 +121,7 @@ def pipeline(tweet_json):
                 if query.topid not in threshold_dict:
                     print "Current query topid: " + query.topid + " not in threshold_dict!"
                     exit()
-                rel_score = similarity_q_t(query, tweet, corpus_dict)
+                rel_score = similarity_q_t2(query, tweet, corpus_dict)
                 
                 # Get relevance and novelty threshold
                 day_delta = day_index(2016, 8, 2)
