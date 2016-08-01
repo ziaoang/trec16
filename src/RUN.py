@@ -169,17 +169,9 @@ def main():
     except Exception, e:
         print e            
 
-def is_system_break():
-    if os.path.exists('RUN/system_break.dat'):
-        return True
-    return False
-
 if __name__ == "__main__":
     while True:
-        if is_system_break():
-            print 'system break !'
-            exit()
-
+        print 'main ...'
         main()
         
         print 'sleep 10 seconds ...'

@@ -22,11 +22,16 @@ def main():
             tid           = row[2] 
             client_id     = row[3]
             
-            order = "curl -X POST -H 'Content-Type: application/json' 54.164.151.19:80/tweet/%s/%s/%s -s -w %{http_code}" % (qid, tid, client)
+            order = "curl -X POST -H 'Content-Type: application/json' 54.164.151.19:80/tweet/%s/%s/%s -s -w %%{http_code}" % (qid, tid, client_id)
+            print order
             responce = os.popen(order).read()
             if responce == '204':
+                print 'success'
                 cur.execute('UPDATE submit SET is_process = 1 WHERE id = %d' % id)
-            
+            else:            
+                print 'ERROR:'
+                print responce
+
             time.sleep(1)
 
         conn.commit()
