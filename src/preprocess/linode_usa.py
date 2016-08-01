@@ -11,7 +11,7 @@ try:
     cur.execute('SELECT * FROM preprocess')
     rows = cur.fetchall()
     
-    df = open('linode_usa.txt', 'w')
+    df = open('/index15/preprocess/linode_usa.txt', 'w')
     for row in rows:
         id            = row[0]
         created_at    = row[1]
