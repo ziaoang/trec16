@@ -3,7 +3,7 @@ from trecjson import TrecJson
 
 class Tweet(TrecJson):
     def __init__(self, tweet_json, stopword_set):
-        TrecJson.__init__(self, stopword_set, {})
+        TrecJson.__init__(self, stopword_set)
         
         try:
             t = json.loads(tweet_json)

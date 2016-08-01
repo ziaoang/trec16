@@ -2,9 +2,8 @@ import re
 import nltk
 
 class TrecJson:
-    def __init__(self, stopword_set, vector_dict):
+    def __init__(self, stopword_set):
         self.stopword_set = stopword_set
-        self.vector_dict = vector_dict
 
     # term level
     def is_rt(self, term):
@@ -71,23 +70,6 @@ class TrecJson:
         length = float(len(word_list))
         for w in res:
             res[w] /= length
-        return res
-
-    def extract_vector(self, word_list):
-        res = []
-        count = 0
-        for w in word_list:
-            if w in self.vector_dict:
-                vector = self.vector_dict[w]
-                if len(res) == 0:
-                    for i in range(len(vector)):
-                        res.append(vector[i])
-                else:
-                    for i in range(len(vector)):
-                        res[i] += vector[i]
-                count += 1
-        for i in range(len(res)):
-            res[i] /= count
         return res
 
 
