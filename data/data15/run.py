@@ -3,7 +3,14 @@ import os
 for rel_thr in [0.75, 0.76, 0.77, 0.78, 0.79, 0.80, 0.81, 0.82, 0.83, 0.84, 0.85]:
     for red_thr in [0.70, 0.71, 0.72, 0.73, 0.74, 0.75, 0.76, 0.77, 0.78, 0.79, 0.80]:   
         print "%.2f\t%.2f" % (rel_thr, red_thr)
-        order = "python real-time-filtering-modelA-eval.py -q qrels.txt -c clusters-2015.json.txt -r ../../src/test/tmp/jm_%.2f_%.2f.dat" % (rel_thr, red_thr)
+        order = "python real-time-filtering-modelA-eval.py -q qrels.txt -c clusters-2015.json.txt -r ../../src/test/tmp/jm2_%.2f_%.2f.dat" % (rel_thr, red_thr)
+        os.system(order)
+
+'''
+for rel_thr in [0.75, 0.76, 0.77, 0.78, 0.79, 0.80, 0.81, 0.82, 0.83, 0.84, 0.85]:
+    for red_thr in [0.70, 0.71, 0.72, 0.73, 0.74, 0.75, 0.76, 0.77, 0.78, 0.79, 0.80]:   
+        print "%.2f\t%.2f" % (rel_thr, red_thr)
+        order = "python real-time-filtering-modelA-eval.py -q qrels.txt -c clusters-2015.json.txt -r ../../src/test/tmp/jm5_%.2f_%.2f.dat" % (rel_thr, red_thr)
         os.system(order)
 
 for rel_thr in [0.70, 0.71, 0.72, 0.73, 0.74, 0.75, 0.76, 0.77, 0.78, 0.79, 0.80]:
@@ -11,6 +18,7 @@ for rel_thr in [0.70, 0.71, 0.72, 0.73, 0.74, 0.75, 0.76, 0.77, 0.78, 0.79, 0.80
         print "%.2f\t%.2f" % (rel_thr, red_thr)
         order = "python real-time-filtering-modelA-eval.py -q qrels.txt -c clusters-2015.json.txt -r ../../src/test/tmp/dir_%.2f_%.2f.dat" % (rel_thr, red_thr)
         os.system(order)
-                
+'''
+             
 
 

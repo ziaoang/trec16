@@ -17,15 +17,9 @@ submit_log_file_path   = 'RUN/SUBMIT.log'
 rel_thr = 0.67
 red_thr = 0.67
 
-# Real
-#task_month     = 8
-#task_start_day = 2
-#task_end_day   = 11
-
-# Test
-task_month     = 7
-task_start_day = 27
-task_end_day   = 31
+task_month     = 8
+task_start_day = 2
+task_end_day   = 11
 
 ######################################################### Load Global Variates
 stopword_set = load_stopword_set()
