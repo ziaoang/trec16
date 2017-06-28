@@ -1,0 +1,714 @@
+RTS1	1	North Carolina
+RTS1	2	NC Boycott
+RTS1	3	Misc
+RTS1	4	Govt Officials: Anti-Transgender
+RTS1	5	SCOTUS Ruling: Fact Of & Reaction
+RTS1	6	Georgia
+RTS1	7	Private citizen opinions
+RTS1	8	Pres. Candidate Views
+RTS1	9	Schools: Parent Views
+RTS1	10	Boycott-Anti Transgender Companies
+RTS1	11	Govts/Schools-Positions
+RTS1	12	Pro-Transgender Companies
+RTS1	13	Non-SCOTUS Judicial Actions
+RTS1	14	Clergy Views - Anti
+RTS1	15	Govy. Officials: Pro-Transgender
+RTS2	1	Global Health Officials
+RTS2	2	Timeline of Zika Virus
+RTS2	3	Chikugunya and Zika
+RTS4	1	Kim Song
+RTS4	2	Zhang
+RTS4	3	Ding
+RTS4	4	Batra
+RTS4	5	Lariba
+RTS4	6	Wu USA
+RTS4	7	Indian team
+RTS4	8	Tapper
+RTS4	9	Niwa Japan
+RTS4	10	Final
+RTS4	11	Offiong Nigeria
+RTS4	12	Ishikawa
+RTS4	13	Feng Singapore
+RTS4	14	Li Xiaoxia
+RTS5	1	Concern Over Men's Poor Play
+RTS5	2	Praise for Women's Team's Play
+RTS5	3	General Fan Expectation of Good Play/Support for Team
+RTS5	4	Negative View of Men's Team
+RTS5	5	Misc
+RTS5	6	Praise For Men's Team's Play
+RTS6	1	Airport Bangkok grtg medalist
+RTS6	2	Tanasan gold weightlifting
+RTS6	3	Thai gold medal Olympics
+RTS6	4	Tallies: Thailand up to 6
+RTS6	5	Go Thailand team!
+RTS6	6	Phelps comparison
+RTS6	7	badminton Thai olympics
+RTS6	8	Gma dies celebrating
+RTS6	9	1st Thai medal
+RTS6	10	Boxer Chatchai Butdee wins 
+RTS6	11	Post Olympic friendlies
+RTS6	14	Analytics for Olympic performance
+RTS6	15	Opening ceremony
+RTS6	16	Boost Ten for high jumping
+RTS6	17	#Thai medals cfd other countries
+RTS6	18	ASEAN nations get medals
+RTS10	1	Japan, H?N anniversary of bombings
+RTS10	2	Nagasaki bombing
+RTS10	3	Obama: US lead toward no nukes
+RTS10	4	H&N killing: US shld be responsible  genocide, terror
+RTS10	5	contemp media satire music vs
+RTS10	6	artifact
+RTS10	7	Hiroshima bombing
+RTS10	8	PokemonGo out of Hiroshima site respect
+RTS10	9	Japan, H&N urge no nukes
+RTS10	10	Japan, H/N urge to follow Obama visit
+RTS10	11	war crimes Democrats H&N
+RTS10	12	Individual remembrance of H&N loss contemp
+RTS10	14	Health repercussions bad
+RTS10	15	1945 media support bombing
+RTS10	16	Trump contemp politics
+RTS10	17	H fatalities vs WWII fatalities
+RTS10	18	Worldwide memorial days to H&N
+RTS10	19	anti-war
+RTS10	20	Truman's "save lives invastion" not real reason
+RTS10	21	H&R bad, now bombing more dangerous
+RTS10	23	international leaders remember
+RTS10	24	securing uranium for H/N bombs
+RTS10	25	US military opposed nuclear attack on J
+RTS10	26	No Nukes! bec of H/N
+RTS10	27	A-bomber crews interviewed
+RTS10	28	surrender after Nagasaki
+RTS10	30	All Americans shld apologize
+RTS10	31	Nanjing massacre #s higher to justify A-bombing
+RTS10	32	Soviets now release film of N&H post-bombings
+RTS10	33	Kyoto off bomb list, historical bkgd
+RTS10	34	Intl Physicians vs War 
+RTS10	35	H. ceremonies varied
+RTS10	37	philosophical negativism after H/N
+RTS10	38	50th anniv of H draws intl 
+RTS10	39	Fatalities in # and pix
+RTS10	40	Caroline Kennedy misses memorial
+RTS10	42	Trump advisor suggests peace on Muslims via a-bomb
+RTS10	43	Fallujah worse than Hiroshima
+RTS10	44	UK politics shld be No Nukes
+RTS10	46	Letter dropped before Nagasaki
+RTS10	47	health effects not so bad
+RTS10	48	US arguments after H/N on Nuclear Future
+RTS10	49	Lessons of H/N still unlearned
+RTS10	50	Shadows of people
+RTS10	51	America bully, terrorist, hypocrite
+RTS10	54	Obama & Kerry sign Hiroshima guest book
+RTS10	55	troubling legacy of H. Am liberal pov
+RTS10	56	Justifiers of H/N morally repugnant
+RTS10	57	Abe condemned for inaction
+RTS10	58	Einstein urged a-bomb
+RTS10	59	Abortion ends more than H/n
+RTS10	60	Sanction America 
+RTS10	62	Manhattan Project philosophical questioning
+RTS10	63	consequences of a-bomb explosions
+RTS10	64	Truman drops bomb
+RTS10	65	Japanese don't admit atrocities
+RTS10	66	Korean a-bomb victim
+RTS10	67	Hirosh animation
+RTS10	68	animated history of time/place
+RTS10	69	Atom bomb as metaphor
+RTS10	70	One year after H/N
+RTS10	72	RIP/ prayers for N/H
+RTS10	73	Necessity?  H/N bombings 
+RTS10	75	Pumpkin bombs
+RTS13	1	Prime includes 1-2 day shipping; big comeon
+RTS13	2	Plane to speed Am deliveries
+RTS13	3	Students--Amazon Prime free 6 mo 
+RTS13	5	Same-day grocery delivery
+RTS13	6	IoT button makes re-order fast
+RTS13	7	Lunch delivery
+RTS13	8	Drone delivery testing
+RTS13	9	Improvement in 2-day delivery needed
+RTS13	10	Reg. Am deliv. already fast
+RTS13	12	Free 30-day Prime offer
+RTS13	13	Trucks as mobile warehouses
+RTS13	14	Praise for Am Prime
+RTS13	15	Jokes using free Prime delivery
+RTS13	17	complaint about price/charging
+RTS13	18	Paid next-day shipping
+RTS13	19	Wants Am to expand delivery service
+RTS13	20	pre-order issues
+RTS13	21	Amazon Global Shipping
+RTS13	22	Gift of Amazon Prime
+RTS13	24	Am. Prime Day success
+RTS13	25	I-day delivery problems on Prime
+RTS13	26	India Prime offered
+RTS13	28	Walmart vs Amazon
+RTS14	1	preparation
+RTS14	2	Don't be scared.  Basics
+RTS14	3	Alternate test: you collect poop
+RTS19	1	quality award
+RTS21	1	Video Is Simply Spectacular
+RTS21	2	work at spaceX
+RTS21	3	not good next to major population centre
+RTS21	4	SpaceX cannot 
+RTS21	5	Spaceflight isn’t easy
+RTS21	6	leadership and innovation of America's commercial space industry
+RTS24	1	Banking bedlam
+RTS24	2	Accurate price forecast
+RTS24	3	Bank of Englad rate cut
+RTS24	4	World Bank
+RTS24	5	Negative interest rates
+RTS24	6	Brits hoarding cash
+RTS24	8	Global markets reaction
+RTS25	1	Third of Russian team banned
+RTS25	2	70% of original Russian team
+RTS25	3	Russian athletes booed
+RTS25	4	Whistle-blower Yulia Stepanova
+RTS25	5	Paralympics Russians banned
+RTS25	6	Undermines the Olympic Charter
+RTS25	7	Adam Nelson re debacle
+RTS25	8	Individuals pro ban
+RTS25	9	Clean Russian athletes are banned
+RTS25	10	Lilly King
+RTS25	11	Jo Pavey over convicted dopers competing in Rio
+RTS25	12	A matter of politics
+RTS25	13	Individuals against ban
+RTS25	14	Efforts to undermine Russian doping probe
+RTS25	15	Disparity
+RTS25	16	Two hundred seventy-one athletes cleared to compete
+RTS25	18	Efimova
+RTS25	19	Chain of events
+RTS25	20	Doping scandal affecting Olympics
+RTS25	21	Shocked by extent of doping
+RTS25	22	Sebastian Coe death threats
+RTS27	1	tourist shot in SF
+RTS27	2	driving
+RTS27	3	sexual predators
+RTS27	4	legal issues
+RTS27	5	man stabbed
+RTS27	6	bullying
+RTS27	7	thief shot in LV
+RTS27	8	bricks thrown
+RTS27	9	robbery in Jax
+RTS27	10	subway warning
+RTS27	11	absurd ways of truouble
+RTS27	12	rumors
+RTS27	13	guidelines
+RTS28	1	General Praise for Titan X 
+RTS28	2	Concern About Price and/or Performance
+RTS28	3	Expensive But Worth It
+RTS31	1	Curvy giant screen
+RTS31	2	Price   availability date
+RTS31	3	Eye Iris tracking unlocking
+RTS31	4	S7 phone
+RTS31	5	Launch Day
+RTS31	6	6GB RAM 128GB storage
+RTS31	7	Compare Note 5
+RTS31	8	First look
+RTS31	9	Curved display
+RTS31	10	Need to know
+RTS31	11	Upgrade comparison
+RTS31	12	Comparison Apple iPhone
+RTS31	13	hardware 
+RTS31	14	India launch
+RTS31	15	Hands on
+RTS31	16	Compare  competition
+RTS32	1	General Complaints About Athlete Living Conditions
+RTS32	2	Jamaican Team - Unfinished Rooms
+RTS32	3	Athletes Should Take a Look at How the Locals Live
+RTS32	4	US Basketball Team Living on Cruise Ship to Avoid Poor Housing
+RTS32	5	Athlete Andrew Bogut's Complaints
+RTS32	6	Aussie Olympic Chief Dismisses Bogut's Complaints
+RTS32	7	US Team Asked Not to Criticize Conditions 
+RTS32	8	Aussie Team Refuses to Live in Unfinished Housing
+RTS32	9	Czech Team Housing: Water Flowing Down Stairs
+RTS32	10	Canadian Athletes Abandon Housing for Hotel
+RTS35	1	Tax-free shopping/holiday
+RTS35	2	States
+RTS35	3	Shop online
+RTS35	4	FREE kids meal
+RTS35	5	Free rides from Alamo Regional Transit
+RTS35	6	Rules; eligible purchases
+RTS35	7	Walmart
+RTS35	8	Lubbock stores
+RTS35	9	Best shopping tips during sales tax holiday
+RTS36	1	August 8; New FDA regulations
+RTS36	2	Sorry kids
+RTS36	3	Deeming; New authority; Challenged
+RTS36	4	Smoking cessation; innovation
+RTS37	1	turtle Salty
+RTS37	2	Seaworld posts
+RTS37	3	petition
+RTS37	4	tanks
+RTS37	5	belugas
+RTS37	6	Kotar gate
+RTS37	7	training
+RTS37	8	Tilikum
+RTS37	9	Unna
+RTS37	10	Morgan
+RTS37	11	teeth - stress
+RTS37	12	Nanuq
+RTS37	13	whale deaths
+RTS37	14	reproduction
+RTS37	15	drugs
+RTS37	16	food incentive
+RTS37	17	whistleblowers
+RTS37	18	sanctuary - pens
+RTS37	19	dolphins
+RTS37	20	walrus
+RTS37	21	how Seaworld tried to get better 
+RTS43	1	11-yr-old
+RTS43	2	Mike Pence Encouraged Tolerance Toward Muslims
+RTS43	3	Mike Pence endorsing Paul Ryan.
+RTS43	4	Mike Pence asked his permission to endorse Paul Ryan
+RTS43	6	Khan family
+RTS43	7	military mom's right to criticize Trump
+RTS43	8	 clarifier-in-chief
+RTS43	9	divergence tracker
+RTS43	10	disagreeing w/ him 1 time
+RTS43	11	 Endorses John McCain
+RTS43	12	MikePence voted for NAFTA
+RTS43	13	get Trump to withdraw
+RTS43	14	Pence more grounded that Trump.
+RTS43	15	big differences to work out
+RTS43	16	A match made in hell:
+RTS43	17	400-million-payment-to-iran
+RTS43	18	Trump backs Ryan
+RTS43	19	he's going against Trump's endorsements
+RTS43	20	Mike Pence was a major Iraq War backer 
+MB226	1	Hershey lodge
+MB226	2	Dining
+MB229	1	California
+MB229	2	Summary lists and maps
+MB229	4	Mass disp
+MB229	5	Minnesota
+MB229	6	Missouri
+MB229	7	Kentucky KY
+MB229	8	Maryland MD
+MB229	9	Florida FL
+MB229	10	DEA pending
+MB229	11	DEA schedule 1
+MB229	12	DEA on research
+MB229	13	Illinois IL
+MB229	14	Arkansas
+MB229	15	New Hampshire NH
+MB229	16	Pennsylvania PA
+MB229	17	Oklahoma OK
+MB229	18	Hawaii
+MB229	19	legal - bank - workplace
+MB229	20	Medical benefits
+MB229	21	Ohio
+MB229	22	Veterans
+MB229	23	Georgia
+MB229	24	Daughters 
+MB229	25	New Jersey - PTSD
+MB229	26	Health risks
+MB229	27	Oregon
+MB229	28	Michigan
+MB229	29	petitions proposals
+MB229	30	Arkansas
+MB229	31	Rhode Island
+MB229	32	South Dakota
+MB229	33	rMaine caregivers
+MB229	34	doctortraining
+MB229	35	Washington
+MB229	36	web sites
+MB229	37	medical for dogs
+MB230	1	Negative Comment Regarding Greyhound Being Hours Late
+MB239	1	Carriage fire
+MB239	2	Proper staffing
+MB239	3	Guards 
+MB239	4	Unsafe windows, backward trains
+MB254	1	Books
+MB254	2	Physical exercise
+MB256	1	Tweets to Pope not getting through
+MB256	2	New Pope tweets 
+MB256	3	Pope visits St. Francis of Assissi church
+MB256	4	PopeF has 3 million Instagram followers
+MB256	5	Twitter suspension for reply to Pope's Rio tweet
+MB256	6	Call for Pope to answer Trump
+MB256	7	Pope on killing Xians in Nigeria
+MB256	8	Researching effects of SocMed on young
+MB256	9	How to counteract mass media in culture
+MB256	10	Pope names savvy spokespersons
+MB256	11	Pope warns nuns about harmful SocMed
+MB256	12	Hard to research Soc Med
+MB256	13	Criticism of Pope and religion impact
+MB256	14	Social ministries and Vatican investment
+MB256	15	US bishops on presidental elections
+MB258	1	General Recommendations of Specific NYC Restaurants
+MB258	2	Misc - Prob Not Relevant
+MB258	3	Recommendation, With Good Review, of Specific NYC Restaurants
+MB258	4	Health Ratings of Specific NYC Restaurants by Geographic Location
+MB258	5	Best Romantic Restaurants in NYC
+MB258	6	Least Hygenic But Still Delcious Restaurants in NYC
+MB258	7	Recommendation List of Specific Greek Restaurants in NYC
+MB258	8	Recommendation List of "Best Hidden Garden" Restaurants in NYC
+MB265	1	Aqua Amazon 
+MB265	2	Alaska lost
+MB265	3	Heart attack
+MB265	4	Sinking collision 
+MB267	1	UN warns of escalating tension; casualties hit highest since last August
+MB267	2	Ukraine regime killing civilians
+MB267	3	Ukraine volunteer unit troops commit atrosities
+MB267	4	Ukraine has joined the growing list of Western rape & pillage victims
+MB267	5	Western fear of providing weapons to Ukraine might lead Kremlin not to fear using more force. 
+MB267	6	Russia land forces reinforcement in Crimea
+MB267	7	Civilian casualties rise as fighting continues in east Ukraine 
+MB267	8	Russian attacks against forces in Ukraine
+MB267	9	several Russian citizens are among those "Ukrainian saboteurs" 
+MB267	10	DPR Fighters Upgrade weapons
+MB267	11	Ukraine 'terrorist attacks' in Crimea foiled
+MB267	12	War is about to start in Ukraine
+MB267	13	Combat training exercises of Russian Occupation Forces 
+MB267	14	Ukraine is fighting for a better future
+MB267	15	The Russian government is "seriously concerned" by an uptick in fighting 
+MB267	16	Will the Russians Try Another Land Grab in Ukraine
+MB267	17	Ukraine denies Ukranian special forces tried to enter Crimea
+MB267	18	Russian Troop Buildup Along Ukraine Border Raises War Fears
+MB267	19	Russian military jamming comms
+MB267	20	Ukraine closes border
+MB267	21	Russian Security Council Meets Over Tighter Crimea Security: 
+MB267	22	Moscow has legal right to bomb "terrorist targets"
+MB267	23	Russian army control Ukraine's border
+MB267	24	Ukraine could try to regain the Crimea by military means
+MB267	25	Russian unit movements near Ukraine
+MB267	26	Trains used to reinforce Russians
+MB267	27	russian military unveil data on #MH17 (civilian airline) incident over #Ukraine 
+MB267	28	Russian helicopters flying over the non-occupied territory of #Ukraine
+MB267	29	Ukraine reinforces border.
+MB267	30	Ukraine lie about Russian aggression in Ukraine, get more weapons
+MB267	31	no Russia's Army aggression in eastern Ukraine
+MB267	32	Ukrainian leader wounded in car bombing
+MB267	33	Russian Officials in Crimea Shut Off the Internet at the Ukrainian Border
+MB267	34	Russian "brothers" firing from BMP
+MB267	35	Russia illegally sent thousands of troops into Eastern Ukraine
+MB267	36	Transnistria and Russia troops had a joint anti-terrorist exercise 
+MB267	37	Has Russia Won In Ukraine
+MB267	39	blame Ukraine while waging war agst Ukraine
+MB267	40	Ukraine ready to turn to UN over Russian accusations of Crimea plot
+MB267	41	Training Ukrain Army
+MB267	42	An attempt to break through the border of Ukraine and the Crimea over the shooting
+MB267	43	Ukraine attacks Crimean border
+MB267	44	Russian soldiers deserted from Crimea,
+MB267	45	ussian military actions around Ukraine have calmed down. No Ukrainian soldier killed last night.
+MB267	46	I spent the day with Ukrainian soldiers wounded this summer.
+MB267	47	Ukraine has the right to kill your soldiers in #Ukraine that includes #Crimea.
+MB267	48	US government has seen nothing so far that corroborates Russian allegations of a “Crimea incursion
+MB267	49	Militants in eastern Ukraine shot dead Russian officer
+MB267	50	Ukraine notified of whereabouts of 45 out of 107 Ukrainians held captive
+MB267	52	Ukrainian security forces shelled the village of Kominternove 
+MB267	53	Russian troops have stopped traffic from Crimea to rest of Ukraine
+MB267	54	Russia' accusations of terrorism by Ukraine will be used for new, more intense repression in Crimea
+MB267	56	NATO Concerned By Tensions Between Russia and Ukraine, 
+MB267	57	Why is there renewed tension in Ukraine? 
+MB267	58	Russia should have protected both Crimea and eastern Ukrain
+MB276	1	Queen Elizabeth
+MB276	2	Northern Ireland
+MB276	3	Italy
+MB276	4	Netherlands
+MB276	5	England
+MB276	6	Germany
+MB276	7	Denmark
+MB286	1	engineer
+MB286	2	Supplemental football coach
+MB286	3	Care Giver aide
+MB286	4	Automotive technician
+MB286	5	Entrepreneur business
+MB286	6	Patrolman
+MB286	7	Catering
+MB286	8	Options work travel
+MB286	9	Small business
+MB286	10	job training apprenticeship
+MB286	11	Construction apprenticeship
+MB286	12	Plumbing heating
+MB286	13	Political intern
+MB286	14	Summer mentor
+MB286	15	CBS Films acquisition
+MB286	16	Target retail
+MB286	17	IBEW Electrical
+MB319	1	Pro articles/essays
+MB319	2	AmaWaterways
+MB319	3	Deals
+MB319	4	Croatia
+MB319	5	Luftner
+MB319	6	New
+MB319	7	Misc
+MB320	1	a group of 5 orcas
+MB320	2	Alaskan adventure
+MB320	3	Alaska Cruise on Norwegian Sun
+MB320	4	Skating Through Icebergs
+MB320	5	cruise to #Alaska - outstanding destination.
+MB320	6	Alaska to boast of over 1 million cruise visitors
+MB320	7	Princess Cruises Summer Sale
+MB320	8	Catch and cook your own fish on an Alaska cruise 
+MB320	9	79-year-old woman on cruise gets lost, spends night
+MB320	10	Alaska By Cruise Ship 
+MB320	11	CRYSTAL SERENITY NORTHWEST PASSAGE
+MB320	12	I took a cruise to Alaska and didn't hate it!
+MB332	1	Recommendation by Music Label/Agent; Poss Biased
+MB332	2	Recommendation by Academic Institution
+MB332	3	Recommendation by Fan
+MB332	4	Misc - Prob Not Relevant/Artists Promoting Themselves
+MB332	5	Recommendation by Media Outlet
+MB332	6	Music Fests Touting New Artists
+MB351	1	Hotels in der Stadt Villaromagnano, Piemont, Italien
+MB351	2	we won't be heading back to Torino
+MB351	3	mountains perspective distance piemonte
+MB351	4	The latest Piemonte
+MB351	5	The Italian Lakes in Piedmonte
+MB351	6	exploring Italy by train
+MB351	7	wine from piedmont
+MB358	1	Amazon comments
+MB358	2	Short tweets
+MB358	3	Sleep
+MB358	4	Apple 
+MB358	5	Mountain climbing
+MB358	6	Calorie tracking
+MB358	7	Activity tracking
+MB361	1	adults with disabilities
+MB361	2	camp bonfire
+MB361	3	Canada camp
+MB361	4	Video of campers
+MB362	1	waiter at Outback sit on the floor 
+MB362	2	Can you believe Ashton invented the outback restaurant?
+MB362	3	Rain delays become Bloomin' Tuesdays
+MB362	4	Grab your squad and meet us for lunch
+MB362	5	go to Outback
+MB362	7	Live music every Tuesday night at Outback
+MB362	8	Outback Steakhouses are packed watching this game
+MB362	9	Sagging sales challenge Outback Steakhouse
+MB362	10	 just checked in at Outback Steakhouse with PLUSPlaces Download
+MB362	11	win a $50 Outback GC 
+MB363	1	Walgreens
+MB363	2	Uniform Shop Back to School 
+MB363	3	Light in the Box
+MB363	4	Back to School Supplies at Staples
+MB363	5	Target
+MB363	6	Walmart,
+MB363	7	EBay
+MB363	8	Discount-School-Supply
+MB363	9	buzzfeed
+MB363	10	amazon
+MB363	11	Etsy shop syylus
+MB363	12	Tumblers, Desktop Supplies, Notepads and More
+MB363	13	textbooks
+MB363	14	lean & tooka packs
+MB363	15	Pencil Case
+MB363	16	Goodwill
+MB363	17	DollarGeneral
+MB363	18	Vera Bradley backpack 
+MB363	19	ChoctawOS
+MB363	20	Stationery Supplies 
+MB363	21	huffmanpta 
+MB363	22	Swagbucks
+MB363	23	topdeal
+MB363	24	BA School Supplies 
+MB363	25	Blippo Kawaii Shop
+MB363	26	Bopyo
+MB363	27	Amazon Prime Day has upended the whole concept of back-to-school sales
+MB363	28	EPI School Supply Packs One Day Sale
+MB363	29	Couponing to Disney
+MB363	30	Laamash
+MB363	31	Office Depot
+MB365	1	battery status used to track
+MB365	2	Avonte's Law
+MB365	3	Illinois Bans Stingray 
+MB365	4	Canada Used Stingray
+MB365	5	RI requiring a warrant for phone location data 
+MB365	6	Ind. warrant for location data
+MB365	7	NYPD is Spying on Your Cell Phone
+MB365	8	U.S. judge throws out NY stingray
+MB365	9	Vancouver police admit using Stingray
+MB365	10	Edmonton police admit to owning a Stingray
+MB371	1	Mercedes bus
+MB371	2	commercial truck
+MB371	3	Google CTO executive depart
+MB371	4	Mercedes car
+MB371	5	Singapore
+MB371	6	ethical moral dilemma
+MB371	7	styling
+MB371	8	consumers automakers insurers
+MB371	9	France
+MB371	10	Michigan
+MB371	11	Mapping map
+MB371	12	Mandatory inspection
+MB371	13	Future
+MB371	14	Tesla crash accident
+MB371	15	Tesla bus
+MB371	16	Tesla future mind blowing
+MB371	17	city future
+MB371	18	google car
+MB371	19	google crash accident
+MB371	20	google truck
+MB371	21	GM Arizona
+MB371	22	BMW concept car
+MB371	23	Tesla medical emergency
+MB371	24	leEco
+MB371	25	Restaurant alcohol producers
+MB371	26	Tesla Sierra Nevada
+MB371	27	Roborace design
+MB371	28	Nissan Serena
+MB371	29	Startup GM
+MB371	30	Social context
+MB371	31	Supply chain disruption
+MB371	32	Bitcoin blockchain micropayment
+MB371	33	Silicon Valley auto deals
+MB371	34	Distracted driving
+MB371	35	Apple battery South Korea
+MB371	36	Apple software
+MB371	37	Consumer interest
+MB371	38	WEpod shuttle nVidia
+MB371	39	Commuters road sharing
+MB371	40	German regulators
+MB371	41	Owner responsibility accident
+MB371	42	Global automotive supplier
+MB377	1	emotion vs safari park
+MB377	2	Tiger attacks car
+MB377	3	Tiger kills woman
+MB377	4	African safari parks
+MB377	5	Safari Park as + activity
+MB377	6	kids see monkeys humping
+MB377	7	Safari Park bldg update
+MB377	8	Animal rights
+MB377	9	penalty for selfie w/ lions
+MB377	10	animals scarily close at African safari
+MB377	11	safari park dangers
+MB377	12	where lions roam and roamed
+MB377	13	Self-drive safaris
+MB377	14	how visitors protected in Afr. parks
+MB381	1	Guidebooks
+MB381	2	Investing
+MB381	3	ancient coins
+MB381	4	ancient coin types
+MB381	5	Skills
+MB381	6	Coin collecting video
+MB381	7	Silver
+MB382	1	Sense organics
+MB382	2	ethical practices
+MB382	3	Isossy fashion show
+MB382	4	new jeans
+MB382	5	Simonetta
+MB382	6	fall clothes
+MB382	7	quality products
+MB382	8	Feltman Bros
+MB391	1	if you believe in global warming and polar ice melting
+MB391	2	tampering of temperature data 
+MB391	3	Alaskans witness collapsing mountains
+MB391	4	climate change is changing how we talk about weather
+MB391	5	 Ice Sheet Melt caused by Heat from Earth's Core 
+MB391	6	disappearing sea ice effect on polar bears
+MB391	7	NASA Map Shows Greenland Melting 
+MB391	8	GRACE ice mass 
+MB391	9	Rio2016 OpeningCeremony
+MB391	10	 sea levels are stable 
+MB391	11	sea ice losses are accelerating 
+MB391	12	When the Greenland & Antarctic ice sheets melt, sea levels will rise to the Statue of Liberty
+MB391	13	Melting Greenland ice sheet will soon unearth military base 
+MB391	14	Library For Ice
+MB391	15	Exploring melt features on lower Rainbow Glacier 
+MB391	16	Global Warming Skeptic Receives Subpoena From Mass. Attorney General 
+MB391	17	Antarctic sea ice is increasing dramatically
+MB391	18	our knowledge of ice changes
+MB391	19	walrus calves are at heightened risk
+MB391	20	Arctic sea life in danger 
+MB391	21	Pinatubo eruption masked acceleration i
+MB391	22	Arctic research vessel 
+MB391	23	Ship of fools; waiting for the ice to melt
+MB391	24	Record-breaking temperatures in the Arctic
+MB391	25	Why is the Arctic climate and ice cover so variable?
+MB391	26	What the Earth Would Look Like If All The Ice Melted
+MB392	1	California
+MB392	2	Idaho
+MB392	3	Montana
+MB392	4	Arizona
+MB392	5	Wyoming
+MB392	6	Washington State
+MB392	7	Oregon
+MB392	8	7 Western States
+MB392	9	Nevada
+MB392	10	Mallorytown, Ontario, Canada, forest fire; article contains info on active U.S. forest fires
+MB409	1	Positive Experience: Short Airport Security Lines/No Hassles/Moved to Front of Line/Nice TSA Personnel
+MB409	2	Prob Not Relevant: Non-First Hand Complaint About TSA Screening
+MB409	3	Complaint About TSA "Harrassment" Regarding Liquids in Luggage
+MB409	4	Complaint About TSA K-9 Sniffing a Travelers Body
+MB409	5	Complaint About "Random" TSA Screenings
+MB409	6	Complaint/Concern About TSA Confiscating Various Items
+MB409	7	Negative Experience: TSA Lines Too Long
+MB409	8	Complaint/Comment About TSA's Inconsistent Application of Screening Policies/What's OK/Not OK
+MB409	9	Physically/Mentally Disabled Woman Assaulted at TSA Checkpoint
+MB409	10	Misc:  Poss Not Relevant
+MB409	11	Complaint About Being "Groped", or Not, by TSA Personnel
+MB409	12	Generic Complaint About TSA
+MB409	13	Explanation of TSA Policies
+MB410	1	Hidden Disney characters
+MB410	2	Hidden things in movies
+MB414	1	Zika
+MB414	2	end travel ban
+MB414	3	new rules
+MB414	4	costs
+MB414	5	air travel
+MB414	6	superplace tips
+MB414	7	travel with kids
+MB414	8	environmental
+MB414	9	beaches
+MB414	10	Cruising
+MB414	11	hotels
+MB414	12	top sights
+MB414	13	Internet - Wifi
+MB414	14	On Cuba travel site
+MB414	15	one and only site
+MB414	16	Cuba Weekly
+MB414	17	Personal essay
+MB414	18	Tenn students
+MB414	19	entrepeneurs
+MB414	20	trip planning
+MB414	21	Cuba travel network
+MB414	22	Cuba News
+MB414	23	individual tweets
+MB420	1	bacon pineappe honey
+MB420	2	noodles
+MB420	6	chicken
+MB420	7	pb honey and sri sandw
+MB420	8	sri  w juice or sauce
+MB420	9	chicken sriracha bar
+MB420	10	fish
+MB420	12	veggies w/ sri
+MB420	13	noodles
+MB420	14	srirachi general
+MB420	15	cheese dip
+MB420	17	beef
+MB420	18	beef and chicken
+MB420	19	popcorn
+MB420	20	ice cream
+MB420	21	eggs
+MB420	22	potatoes sweet
+MB420	23	turkey
+MB425	1	Sudoku hard, stressful
+MB425	2	Platform suggested for online sudoku
+MB425	3	tournament play"?
+MB431	1	Video promo
+MB431	2	Importance acting student
+MB431	3	Faultless performance Hamlet
+MB431	4	Stratford-upon-Avon
+MB431	5	Midsummer Night's Dream
+MB431	6	Amazing performance Taming Shrew
+MB436	1	Waffle House credit card
+MB436	2	ex-Waitress sues NC restaurant
+MB436	3	Don't tip not tip
+MB436	4	Hostess great table
+MB436	5	Ogden $5000
+MB436	6	tipped twice
+MB436	7	McDonalds
+MB436	8	reduced 15%
+MB438	1	Key west 
+MB440	1	co-must-secure-amina-al-jefferys-safe-return-from-saudi-arabia
+MB440	2	Princess Reema Appointed as the Vice President for Women's Affairs.
+MB440	3	support stop enslaving women in Saudi
+MB440	7	Hillary Clinton, taking money from Saudi
+MB440	8	 Saudi Arabia  Olympic team
+MB440	9	 Women BANNED from Dunkin' Donuts in Saudi Arabia -
+MB440	12	Prince Salman. Saudi Arabia is NOT ready for women drivers.
+MB440	13	car driving for women has finally been accepted
+MB440	16	When saudi men see a hashtag about women's rights 
+MB440	19	WomensDay
+MB440	25	Saudi Arabia were led out by a woman driver at the Olympics opening ceremony
+MB440	26	first female flight crew lands in Saudi Arabia
+MB440	29	Women International Basketball Federation to rule 
+MB440	32	Under Sharia Law, Saudi woman received 100 lashes for the crime of being raped.
